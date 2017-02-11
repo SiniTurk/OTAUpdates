@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <item name="colorPrimary">@color/colorSecond</item>
         <item name="colorPrimaryDark">@color/lightGrey</item>
         <item name="colorAccent">@color/colorSecond</item>
-        <item name="android:background">@color/darkGrey</item>
     </style>
 
 </resources>
