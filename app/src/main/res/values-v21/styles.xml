@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <style name="AppTheme" parent="Theme.AppCompat">
                 <!-- Customize your theme here. -->
                 <item name="colorPrimary">@color/colorSecond</item>
                 <item name="colorPrimaryDark">@color/lightGrey</item>
