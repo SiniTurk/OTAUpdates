@@ -12,7 +12,7 @@
         android:id="@+id/btn_refresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_refresh_white_48dp"
+        android:src="@drawable/ic_refresh_white_36dp"
         android:clickable="true"
         android:onClick="btn_refresh"
         android:foreground="?android:attr/selectableItemBackground"
