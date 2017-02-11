@@ -64,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        final StringBuilder sb = new StringBuilder();
+        final StringBuilder build_device = new StringBuilder();
         // TODO: Retrieve server address from build.prop
-        sb.append("http://timschumi.16mb.com/ota/api/").append(Build.DEVICE);
+        build_device.append("http://timschumi.16mb.com/ota/api/").append(Build.DEVICE);
 
         otaList = new ArrayList<OTAUpdates>();
-        new JSONAsyncTask().execute(sb.toString());
+        new JSONAsyncTask().execute(build_device.toString());
 
         final ListView listview = (ListView) findViewById(R.id.ota_list);
         adapter = new OTAUpdatesAdapter(getApplicationContext(), R.layout.row, otaList);
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    new JSONAsyncRefreshTask().execute(sb.toString());
+                    new JSONAsyncRefreshTask().execute(build_device.toString());
             }
         });
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new JSONAsyncRefreshTask().execute(sb.toString());
+                new JSONAsyncRefreshTask().execute(build_device.toString());
             }
         });
 
