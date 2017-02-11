@@ -23,9 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <item name="colorAccent">@color/colorSecond</item>
                 <item name="android:navigationBarColor">@color/lightGrey</item>
 
-                <!-- Remove toolbar later...
+
                 <item name="windowActionBar">false</item>
-                <item name="windowNoTitle">true</item> -->
+                <item name="windowNoTitle">true</item>
 
         </style>
 

@@ -14,13 +14,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="berkantkz.otaupdates.MainActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar" />
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinator_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="berkantkz.otaupdates.MainActivity">
+        android:layout_below="@id/tool_bar">
 
         <com.baoyz.widget.PullRefreshLayout
             android:layout_width="match_parent"
@@ -57,3 +67,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </LinearLayout>
     </com.baoyz.widget.PullRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

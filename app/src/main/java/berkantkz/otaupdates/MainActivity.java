@@ -30,6 +30,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.baoyz.widget.PullRefreshLayout;
@@ -52,11 +55,14 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<OTAUpdates> otaList;
     OTAUpdatesAdapter adapter;
     private PullRefreshLayout refreshLayout;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
         final StringBuilder sb = new StringBuilder();
         // TODO: Retrieve server address from build.prop
@@ -75,6 +81,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onRefresh() {
                     new JSONAsyncRefreshTask().execute(sb.toString());
+            }
+        });
+
+        ImageView btn_refresh = (ImageView) findViewById(R.id.btn_refresh);
+        btn_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new JSONAsyncRefreshTask().execute(sb.toString());
             }
         });
 
