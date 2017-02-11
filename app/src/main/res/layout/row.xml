@@ -13,9 +13,10 @@
 
         <ImageView
             android:id="@+id/ota_channel"
-            android:layout_width="128px"
-            android:layout_height="128px"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@mipmap/ic_launcher"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"/>
 
         <LinearLayout
