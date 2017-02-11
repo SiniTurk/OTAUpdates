@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
             sb = Snackbar.make(coordinator_root, "Loading", Snackbar.LENGTH_LONG);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+            sb.show();
         }
 
         @Override
