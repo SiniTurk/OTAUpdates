@@ -1,9 +1,32 @@
+/**
+ * Project: OTAUpdates
+ *
+ * @author berkantkz, TimSchumi
+ * License: GNU General Public License, Version 3
+ */
+/**
+ * Copyright 2017 Berkant Korkmaz, Tim Schumacher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package berkantkz.otaupdates;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +38,6 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-/**
- * Created by berka on 2.02.2017.
- */
 public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
     ArrayList<OTAUpdates> otalist;
     LayoutInflater vi;
@@ -31,8 +51,9 @@ public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
         otalist = objects;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // convert view = design
         View v = convertView;
         if (v == null) {
@@ -75,7 +96,7 @@ public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
                 InputStream in = new java.net.URL(urldisplay).openStream();
                 mIcon = BitmapFactory.decodeStream(in);
             } catch (Exception e) {
-                Log.e("Error", e.getMessage());
+                Log.e("Error: ", e.getMessage());
                 e.printStackTrace();
             }
             return mIcon;

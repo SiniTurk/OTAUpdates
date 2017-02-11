@@ -1,3 +1,25 @@
+/**
+ * Project: OTAUpdates
+ *
+ * @author berkantkz, TimSchumi
+ * License: GNU General Public License, Version 3
+ */
+/**
+ * Copyright 2017 Berkant Korkmaz, Tim Schumacher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package berkantkz.otaupdates;
 
 import android.net.ParseException;
@@ -37,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final StringBuilder sb = new StringBuilder();
+        // TODO: Retrieve server address from build.prop
         sb.append("http://timschumi.16mb.com/ota/api/").append(Build.DEVICE);
 
         otaList = new ArrayList<OTAUpdates>();
@@ -102,11 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //------------------>>
 
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (ParseException | IOException | JSONException e) {
                 e.printStackTrace();
             }
             return false;
@@ -115,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
-            if (result == false)
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+            if (!result)
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -166,11 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //------------------>>
 
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (ParseException | IOException | JSONException e) {
                 e.printStackTrace();
             }
             return false;
@@ -180,8 +195,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
-            if (result == false)
-                Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();
+            if (!result)
+                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
                 refreshLayout.setRefreshing(false);
         }
     }
