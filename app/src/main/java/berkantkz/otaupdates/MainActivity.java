@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
             sb = Snackbar.make(coordinator_root, "Loading", Snackbar.LENGTH_LONG);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-                    sb.show();
+            sb.show();
         }
 
         @Override
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
             if (!result)
                 sb.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG);
                 sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                sb.show();
         }
     }
 
@@ -211,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
             if (!result)
                 sb.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG);
                 sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                sb.show();
                 refreshLayout.setRefreshing(false);
         }
     }
