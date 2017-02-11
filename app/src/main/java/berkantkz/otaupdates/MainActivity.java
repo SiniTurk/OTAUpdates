@@ -28,6 +28,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
@@ -82,12 +83,15 @@ public class MainActivity extends AppCompatActivity {
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         CoordinatorLayout coordinator_root;
+        Snackbar sb;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            Snackbar.make(coordinator_root, "Loading...", Snackbar.LENGTH_LONG).show();
+            sb = Snackbar.make(coordinator_root, "Loading", Snackbar.LENGTH_LONG);
+            sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                    sb.show();
         }
 
         @Override
@@ -137,19 +141,23 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
             if (!result)
-                Snackbar.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG).show();
+                sb.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG);
+                sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
         }
     }
 
     class JSONAsyncRefreshTask extends AsyncTask<String, Void, Boolean> {
 
         CoordinatorLayout coordinator_root;
+        Snackbar sb;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            Snackbar.make(coordinator_root, "Refreshing...", Snackbar.LENGTH_LONG).show();
+            sb = Snackbar.make(coordinator_root, "Refreshing...", Snackbar.LENGTH_LONG);
+            sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+            sb.show();
         }
 
         @Override
@@ -201,7 +209,8 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
             if (!result)
-                Snackbar.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG).show();
+                sb.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG);
+                sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
                 refreshLayout.setRefreshing(false);
         }
     }
