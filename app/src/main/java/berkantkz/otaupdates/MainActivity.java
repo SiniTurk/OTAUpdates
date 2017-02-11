@@ -26,10 +26,10 @@ import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
 
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<OTAUpdates> otaList;
     OTAUpdatesAdapter adapter;
     private PullRefreshLayout refreshLayout;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
+        CoordinatorLayout coordinator_root;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_SHORT).show();
+            coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
+            Snackbar.make(coordinator_root, "Loading...", Snackbar.LENGTH_LONG).show();
         }
 
         @Override
@@ -135,16 +137,19 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
             if (!result)
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG).show();
         }
     }
 
     class JSONAsyncRefreshTask extends AsyncTask<String, Void, Boolean> {
 
+        CoordinatorLayout coordinator_root;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_SHORT).show();
+            coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
+            Snackbar.make(coordinator_root, "Refreshing...", Snackbar.LENGTH_LONG).show();
         }
 
         @Override
@@ -196,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
             if (!result)
-                Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                Snackbar.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG).show();
                 refreshLayout.setRefreshing(false);
         }
     }

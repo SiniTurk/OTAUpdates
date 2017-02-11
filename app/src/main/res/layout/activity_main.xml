@@ -14,40 +14,46 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<com.baoyz.widget.PullRefreshLayout
-    android:id="@+id/app_swipe_refresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="berkantkz.otaupdates.MainActivity">
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        tools:context="berkantkz.otaupdates.MainActivity">
 
-        <LinearLayout
-            android:id="@+id/linear_root"
+        <com.baoyz.widget.PullRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:id="@+id/app_swipe_refresh">
 
-            <TextView
-                    android:id="@+id/text_download"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorSecond"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:text="DOWNLOAD" />
+            <LinearLayout
+                android:id="@+id/linear_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <ListView
-                    android:id="@+id/ota_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@color/colorSecond"
-                    android:dividerHeight="3px" />
-        </LinearLayout>
-</com.baoyz.widget.PullRefreshLayout>
+                <TextView
+                        android:id="@+id/text_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorSecond"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:text="DOWNLOAD" />
+
+                <ListView
+                        android:id="@+id/ota_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@color/colorSecond"
+                        android:dividerHeight="3px" />
+            </LinearLayout>
+    </com.baoyz.widget.PullRefreshLayout>
+</android.support.design.widget.CoordinatorLayout>
