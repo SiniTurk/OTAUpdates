@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         final StringBuilder build_device = new StringBuilder();
         build_device.append(
                 (Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url)
-        ).append("/api/").append(Build.DEVICE);
+        ).append("/api/").append(Build.DEVICE).append("/").append(Build.TIME/1000);
 
         // Build download address
         final StringBuilder build_dl_url = new StringBuilder();
@@ -185,8 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         dls.setOta_timestamp(object.getString("timestamp"));
                         //dls.setOta_channel(object.getString("channel"));
 
-                        if (object.getLong("timestamp") >= Build.TIME/1000)
-                            otaList.add(dls);
+                        otaList.add(dls);
 
                     }
                     return true;
