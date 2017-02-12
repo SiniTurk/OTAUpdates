@@ -201,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
                         dls.setOta_timestamp(object.getString("timestamp"));
                         //dls.setOta_channel(object.getString("channel"));
 
-                        otaList.add(dls);
+                        if (object.getLong("timestamp") >= Build.TIME/1000)
+                            otaList.add(dls);
 
                     }
                     return true;
@@ -269,7 +270,8 @@ public class MainActivity extends AppCompatActivity {
                         dls.setOta_timestamp(object.getString("timestamp"));
                         //dls.setOta_channel(object.getString("channel"));
 
-                        otaList.add(dls);
+                        if (object.getLong("timestamp") >= Build.TIME/1000)
+                            otaList.add(dls);
 
                     }
                     return true;
