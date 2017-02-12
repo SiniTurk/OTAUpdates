@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/btn_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_refresh_white_36dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_refresh_white"
         android:clickable="true"
         android:onClick="btn_refresh"
         android:foreground="?android:attr/selectableItemBackground"
