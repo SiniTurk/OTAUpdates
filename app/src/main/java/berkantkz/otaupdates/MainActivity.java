@@ -44,7 +44,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.baoyz.widget.PullRefreshLayout;
 
@@ -67,39 +66,14 @@ public class MainActivity extends AppCompatActivity {
     OTAUpdatesAdapter adapter;
     private PullRefreshLayout refreshLayout;
     private Toolbar toolbar;
+    DownloadManager manager;
+    DownloadManager.Request request;
     private static final int PERMISSION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Write Acces");
-            builder.setMessage("We need your permission to download available roms. You must accept this, else app won't work.");
-            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if (Build.VERSION.SDK_INT >= 23)
-                    {
-                        if (checkPermission()) {
-                        } else {
-                            requestPermission();
-                         }
-                        }
-                  }
-                });
-            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            AlertDialog alert = builder.create();
-                if (checkPermission())  {
-                // If granted, do nothing
-                } else {
-                    alert.show();
-                }
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -141,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long id) {
                 String url = build_dl_url.toString() + otaList.get(position).getOta_filename();
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request = new DownloadManager.Request(Uri.parse(url));
                 request.setDescription(otaList.get(position).getOta_version() + " " + "-" + " " + otaList.get(position).getOta_timestamp());
                 request.setTitle(otaList.get(position).getOta_filename());
 
@@ -151,8 +125,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, otaList.get(position).getOta_filename());
                     // get download service and enqueue file
-                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                manager.enqueue(request);
+                manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (checkPermission() == false) {
+                    allow_write_sd();
+                } else {
+                    manager.enqueue(request);
+                }
             }
         });
 
@@ -229,6 +207,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void allow_write_sd() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Write Acces");
+        builder.setMessage("We need your permission to download available roms. You must accept this, else app won't work.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (Build.VERSION.SDK_INT >= 23)
+                {
+                    if (checkPermission() == false) {
+                        // If user hasn't allowed yet, request the permission.
+                        requestPermission();
+                    }
+                }
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.setCancelable(false);
+        if (checkPermission() == false)  {
+            // If user hasn't allowed yet, show requester dialog.
+            alert.show();
+        }
+    }
+
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED) {
@@ -239,12 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestPermission() {
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            Toast.makeText(MainActivity.this, "Need to be allowed.", Toast.LENGTH_LONG).show();
-        } else {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-        }
     }
 
     @Override
@@ -253,8 +249,10 @@ public class MainActivity extends AppCompatActivity {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("OTA Updates", "Permission granted. Files can be saved");
+                    manager.enqueue(request);
                 } else {
                     Log.e("OTA Updates", "Permission denied. App won't work.");
+                    finish();
                 }
                 break;
         }
