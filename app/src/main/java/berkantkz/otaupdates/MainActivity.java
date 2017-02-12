@@ -60,6 +60,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import berkantkz.otaupdates.utils.Constants;
+import berkantkz.otaupdates.utils.Utils;
+
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<OTAUpdates> otaList;
@@ -79,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final StringBuilder build_device = new StringBuilder();
-        // TODO: Retrieve server address from build.prop
-        build_device.append("http://timschumi.16mb.com/ota/api/").append(Build.DEVICE);
+        build_device.append(
+                (Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url)
+        ).append("/api/").append(Build.DEVICE);
 
         // Build download address
         final StringBuilder build_dl_url = new StringBuilder();
-        build_dl_url.append("http://timschumi.16mb.com/ota/builds/");
+        build_dl_url.append(
+                (Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url)
+        ).append("/builds/");
 
         otaList = new ArrayList<OTAUpdates>();
         new JSONAsyncTask().execute(build_device.toString());
@@ -94,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
         listview.setAdapter(adapter);
 
         refreshLayout = (PullRefreshLayout) findViewById(R.id.app_swipe_refresh);
-            refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
-            refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    new JSONAsyncTask().execute(build_device.toString());
+        refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
+        refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new JSONAsyncTask().execute(build_device.toString());
             }
         });
 
@@ -126,11 +132,10 @@ public class MainActivity extends AppCompatActivity {
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, otaList.get(position).getOta_filename());
                     // get download service and enqueue file
                 manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                if (checkPermission() == false) {
+                if (Build.VERSION.SDK_INT >= 23 && !checkPermission())
                     allow_write_sd();
-                } else {
+                else
                     manager.enqueue(request);
-                }
             }
         });
 
@@ -145,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            sb = Snackbar.make(coordinator_root, "Loading...", Snackbar.LENGTH_LONG);
+            sb = Snackbar.make(coordinator_root, getString(R.string.loading), Snackbar.LENGTH_LONG);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
@@ -200,31 +205,28 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
             if (!result)
-                sb.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG);
-                sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-                sb.show();
-                refreshLayout.setRefreshing(false);
+                sb.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_LONG);
+            sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+            sb.show();
+            refreshLayout.setRefreshing(false);
         }
     }
 
     private void allow_write_sd() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Write Acces");
-        builder.setMessage("We need your permission to download available roms. You must accept this, else app won't work.");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.write_access));
+        builder.setMessage(getString(R.string.write_access_message));
+        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (Build.VERSION.SDK_INT >= 23)
-                {
-                    if (checkPermission() == false) {
-                        // If user hasn't allowed yet, request the permission.
-                        requestPermission();
-                    }
+                if (Build.VERSION.SDK_INT >= 23 && !checkPermission()) {
+                    // If user hasn't allowed yet, request the permission.
+                    requestPermission();
                 }
             }
         });
         AlertDialog alert = builder.create();
         alert.setCancelable(false);
-        if (checkPermission() == false)  {
+        if (!checkPermission())  {
             // If user hasn't allowed yet, show requester dialog.
             alert.show();
         }
@@ -232,11 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission() {
@@ -248,10 +246,9 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("OTA Updates", "Permission granted. Files can be saved");
-                    manager.enqueue(request);
+                    Log.d(getString(R.string.app_name), getString(R.string.permissions_granted));
                 } else {
-                    Log.e("OTA Updates", "Permission denied. App won't work.");
+                    Log.e(getString(R.string.app_name), getString(R.string.permissions_denied));
                     finish();
                 }
                 break;

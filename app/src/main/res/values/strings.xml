@@ -14,5 +14,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-    <string name="app_name">OTA Updates</string>
+    <string name="app_name" translatable="false">OTA Updates</string>
+    <string name="write_access">Write Access</string>
+    <string name="write_access_message">We need your permission to download available roms. You must accept this, else app won\'t work.</string>
+    <string name="loading">Loading…</string>
+    <string name="loading_failed">Failed to load! Check your connection first</string>
+    <string name="request_permission">Needs to be allowed</string>
+    <string name="permissions_granted">Permission granted. Files can be saved</string>
+    <string name="permissions_denied">Permission denied. The App won\'t work</string>
+    <string name="button_ok">OK</string>
 </resources>
