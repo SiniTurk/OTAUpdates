@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    new JSONAsyncRefreshTask().execute(build_device.toString());
+                    new JSONAsyncTask().execute(build_device.toString());
             }
         });
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new JSONAsyncRefreshTask().execute(build_device.toString());
+                new JSONAsyncTask().execute(build_device.toString());
             }
         });
 
@@ -167,75 +167,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            sb = Snackbar.make(coordinator_root, "Loading", Snackbar.LENGTH_LONG);
-            sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-            sb.show();
-        }
-
-        @Override
-        protected Boolean doInBackground(String... urls) {
-            try {
-
-                //------------------>>
-                HttpGet httppost = new HttpGet(urls[0]);
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response = httpclient.execute(httppost);
-
-                // StatusLine stat = response.getStatusLine();
-                int status = response.getStatusLine().getStatusCode();
-
-                if (status == 200) {
-                    HttpEntity entity = response.getEntity();
-                    String data = EntityUtils.toString(entity);
-
-                    JSONObject jsono = new JSONObject(data);
-                    JSONArray jarray = jsono.getJSONArray("result");
-
-                    for (int i = 0; i < jarray.length(); i++) {
-                        JSONObject object = jarray.getJSONObject(i);
-
-                        OTAUpdates dls = new OTAUpdates();
-
-                        dls.setOta_filename(object.getString("filename"));
-                        dls.setOta_version(object.getString("version"));
-                        dls.setOta_timestamp(object.getString("timestamp"));
-                        //dls.setOta_channel(object.getString("channel"));
-
-                        if (object.getLong("timestamp") >= Build.TIME/1000)
-                            otaList.add(dls);
-
-                    }
-                    return true;
-                }
-
-                //------------------>>
-
-            } catch (ParseException | IOException | JSONException e) {
-                e.printStackTrace();
-            }
-            return false;
-
-        }
-
-        protected void onPostExecute(Boolean result) {
-            adapter.notifyDataSetChanged();
-            if (!result)
-                sb.make(coordinator_root, "Failed to load! Check your connection first.", Snackbar.LENGTH_LONG);
-                sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-                sb.show();
-        }
-    }
-
-    class JSONAsyncRefreshTask extends AsyncTask<String, Void, Boolean> {
-
-        CoordinatorLayout coordinator_root;
-        Snackbar sb;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            sb = Snackbar.make(coordinator_root, "Refreshing...", Snackbar.LENGTH_LONG);
+            sb = Snackbar.make(coordinator_root, "Loading...", Snackbar.LENGTH_LONG);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
