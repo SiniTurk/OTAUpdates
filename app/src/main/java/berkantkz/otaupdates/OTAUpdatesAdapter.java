@@ -3,15 +3,14 @@
  *
  * @author berkantkz, TimSchumi
  * License: GNU General Public License, Version 3
- */
-/**
+ * <p>
  * Copyright 2017 Berkant Korkmaz, Tim Schumacher
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -89,6 +88,7 @@ public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
+
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
             Bitmap mIcon = null;

@@ -3,15 +3,14 @@
  *
  * @author berkantkz, TimSchumi
  * License: GNU General Public License, Version 3
- */
-/**
+ * <p>
  * Copyright 2017 Berkant Korkmaz, Tim Schumacher
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -19,7 +18,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package berkantkz.otaupdates;
 
 import android.app.DownloadManager;
@@ -37,6 +35,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -63,6 +62,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import berkantkz.otaupdates.utils.Constants;
@@ -70,48 +70,47 @@ import berkantkz.otaupdates.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<OTAUpdates> otaList;
-    OTAUpdatesAdapter adapter;
-    private PullRefreshLayout refreshLayout;
-    private Toolbar toolbar;
-    DownloadManager manager;
-    DownloadManager.Request request;
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int RESULT_SETTINGS = 1;
+    final StringBuilder build_device = new StringBuilder();
+    final StringBuilder build_dl_url = new StringBuilder();
+    ArrayList<OTAUpdates> otaList;
+    OTAUpdatesAdapter adapter;
+    DownloadManager manager;
+    DownloadManager.Request request;
     Snackbar sb_network;
+    private PullRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-        final StringBuilder build_device = new StringBuilder();
-        build_device.append(
-                (Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url)
-        ).append("/api/").append(Build.DEVICE).append("/").append(Build.TIME/1000);
+        build_device.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
+                .append("/api/")
+                .append(Build.DEVICE).append("/")
+                .append(Build.TIME / 1000);
 
-        // Build download address
-        final StringBuilder build_dl_url = new StringBuilder();
-        build_dl_url.append(
-                (Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url)
-        ).append("/builds/");
+        build_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
+                .append("/builds/");
 
-        otaList = new ArrayList<OTAUpdates>();
-        new JSONAsyncTask().execute(build_device.toString());
+        otaList = new ArrayList<>();
+        get_ota_builds();
 
-        final ListView listview = (ListView) findViewById(R.id.ota_list);
+        final ListView ota_list = (ListView) findViewById(R.id.ota_list);
+
         adapter = new OTAUpdatesAdapter(getApplicationContext(), R.layout.row, otaList);
-        listview.setAdapter(adapter);
+        ota_list.setAdapter(adapter);
 
         refreshLayout = (PullRefreshLayout) findViewById(R.id.app_swipe_refresh);
         refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
         refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new JSONAsyncTask().execute(build_device.toString());
+                get_ota_builds();
             }
         });
 
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         btn_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new JSONAsyncTask().execute(build_device.toString());
+                get_ota_builds();
             }
         });
 
@@ -138,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final ListView ota_list = (ListView) findViewById(R.id.ota_list);
         final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -153,26 +151,90 @@ public class MainActivity extends AppCompatActivity {
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 }
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, otaList.get(position).getOta_filename());
-                    // get download service and enqueue file
+                // get download service and enqueue file
                 manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 if (Build.VERSION.SDK_INT >= 23 && !checkPermission())
                     allow_write_sd();
-                else if (sharedPreferences.getBoolean("disable_mobile", true) == true) {
-                     if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
-                        sb_network = Snackbar.make(coordinator_root, "Downloads with mobile data isn't allowed.", Snackbar.LENGTH_SHORT);
+                else if (sharedPreferences.getBoolean("disable_mobile", true)) {
+                    if (isMobileDataEnabled()) {
+                        sb_network = Snackbar.make(coordinator_root, getString(R.string.disable_mobile_message), Snackbar.LENGTH_SHORT);
                         sb_network.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
                         sb_network.show();
-                     } else {
+                    } else {
                         manager.enqueue(request);
-                     }
-                }
-                else {
+                    }
+                } else {
                     manager.enqueue(request);
                 }
             }
         });
 
 
+    }
+
+    private void get_ota_builds() {
+        new JSONAsyncTask().execute(build_device.toString());
+    }
+
+    private void allow_write_sd() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.write_access));
+        builder.setMessage(getString(R.string.write_access_message));
+        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (Build.VERSION.SDK_INT >= 23 && !checkPermission()) {
+                    // If user hasn't allowed yet, request the permission.
+                    requestPermission();
+                }
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.setCancelable(false);
+        if (!checkPermission()) {
+            // If user hasn't allowed yet, show requester dialog.
+            alert.show();
+        }
+    }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * @return null if unconfirmed
+     */
+    public Boolean isMobileDataEnabled(){
+        Object connectivityService = getSystemService(CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) connectivityService;
+
+        try {
+            Class<?> c = Class.forName(cm.getClass().getName());
+            Method m = c.getDeclaredMethod("getMobileDataEnabled");
+            m.setAccessible(true);
+            return (Boolean)m.invoke(cm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(getString(R.string.app_name), getString(R.string.permissions_granted));
+                } else {
+                    Log.e(getString(R.string.app_name), getString(R.string.permissions_denied));
+                    finish();
+                }
+                break;
+        }
     }
 
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -198,10 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response = httpclient.execute(httppost);
 
-                // StatusLine stat = response.getStatusLine();
-                int status = response.getStatusLine().getStatusCode();
-
-                if (status == 200) {
+                if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
 
@@ -238,53 +297,10 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             refreshLayout.setRefreshing(false);
             if (!result)
-                sb.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_LONG);
+                Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_LONG);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
             refreshLayout.setRefreshing(false);
-        }
-    }
-
-    private void allow_write_sd() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.write_access));
-        builder.setMessage(getString(R.string.write_access_message));
-        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (Build.VERSION.SDK_INT >= 23 && !checkPermission()) {
-                    // If user hasn't allowed yet, request the permission.
-                    requestPermission();
-                }
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.setCancelable(false);
-        if (!checkPermission())  {
-            // If user hasn't allowed yet, show requester dialog.
-            alert.show();
-        }
-    }
-
-    private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        return result == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPermission() {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(getString(R.string.app_name), getString(R.string.permissions_granted));
-                } else {
-                    Log.e(getString(R.string.app_name), getString(R.string.permissions_denied));
-                    finish();
-                }
-                break;
         }
     }
 
