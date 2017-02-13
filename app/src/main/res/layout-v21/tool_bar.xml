@@ -8,14 +8,31 @@
     android:background="@color/lightGrey"
     android:elevation="4dp" >
 
-    <ImageView
-        android:id="@+id/btn_refresh"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_refresh_white"
-        android:clickable="true"
-        android:onClick="btn_refresh"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        android:layout_marginRight="5dp"
-        android:layout_gravity="right"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <ImageView
+            android:id="@+id/btn_refresh"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/ic_refresh_white"
+            android:clickable="true"
+            android:onClick="btn_refresh"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"/>
+
+        <ImageView
+            android:id="@+id/btn_settings"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_settings_white"
+            android:clickable="true"
+            android:onClick="btn_settings"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_toRightOf="@id/btn_refresh"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </android.support.v7.widget.Toolbar>

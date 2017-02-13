@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Network" >
+        <CheckBoxPreference
+            android:title="Disable downloading over mobile network"
+            android:summary="May require relaunch the app"
+            android:defaultValue="true"
+            android:key="disable_mobile" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
