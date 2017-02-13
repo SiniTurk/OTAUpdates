@@ -16,17 +16,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-        <style name="AppTheme" parent="Theme.AppCompat">
-                <!-- Customize your theme here. -->
-                <item name="colorPrimary">@color/colorSecond</item>
-                <item name="colorPrimaryDark">@color/lightGrey</item>
-                <item name="colorAccent">@color/colorSecond</item>
-                <item name="android:navigationBarColor">@color/lightGrey</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme_Dark" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorSecond</item>
+        <item name="colorPrimaryDark">@color/lightGrey</item>
+        <item name="colorAccent">@color/colorSecond</item>
+        <item name="android:navigationBarColor">@color/lightGrey</item>
 
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-                <item name="windowActionBar">false</item>
-                <item name="windowNoTitle">true</item>
+    <style name="AppTheme_Light" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorSecond</item>
+        <item name="colorPrimaryDark">@color/Grey2</item>
+        <item name="colorAccent">@color/colorSecond</item>
 
-        </style>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 </resources>
