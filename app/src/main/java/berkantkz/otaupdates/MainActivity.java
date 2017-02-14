@@ -21,11 +21,14 @@
 package berkantkz.otaupdates;
 
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
@@ -67,6 +70,7 @@ import java.util.ArrayList;
 
 import berkantkz.otaupdates.utils.Constants;
 import berkantkz.otaupdates.utils.Utils;
+import eu.chainfire.libsuperuser.Shell;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,7 +83,34 @@ public class MainActivity extends AppCompatActivity {
     DownloadManager manager;
     DownloadManager.Request request;
     Snackbar sb_network;
+
     private PullRefreshLayout refreshLayout;
+    BroadcastReceiver dlcomplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+                // Trigger Installation if Root was detected
+                String filename = null;
+
+                Bundle extras = intent.getExtras();
+                DownloadManager.Query q = new DownloadManager.Query();
+                q.setFilterById(extras.getLong(DownloadManager.EXTRA_DOWNLOAD_ID));
+                Cursor c = manager.query(q);
+
+                if (c.moveToFirst()) {
+                    int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                        filename = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                    }
+                }
+                c.close();
+
+                trigger_autoinstall(filename);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         build_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/builds/");
+
+        registerReceiver(dlcomplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
         otaList = new ArrayList<>();
         get_ota_builds();
@@ -192,6 +225,37 @@ public class MainActivity extends AppCompatActivity {
         alert.setCancelable(false);
         if (!checkPermission()) {
             // If user hasn't allowed yet, show requester dialog.
+            alert.show();
+        }
+    }
+
+    private void trigger_autoinstall(final String file_path) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (Shell.SU.available() && sharedPreferences.getBoolean("enable_auto_install", true) ) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.auto_install_title));
+            builder.setMessage(getString(R.string.auto_install_message));
+            builder.setPositiveButton(getString(R.string.button_yes), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Shell.SU.run("rm -rf /cache/recovery/openrecoveryscript");
+                    Shell.SU.run("echo \"install "+file_path+"\" >> /cache/recovery/openrecoveryscript");
+
+                    if (sharedPreferences.getBoolean("wipe_cache", true))
+                        Shell.SU.run("echo \"wipe cache\" >> /cache/recovery/openrecoveryscript");
+
+                    if (sharedPreferences.getBoolean("wipe_dalvik", true))
+                        Shell.SU.run("echo \"wipe dalvik\" >> /cache/recovery/openrecoveryscript");
+
+                    if (sharedPreferences.getBoolean("auto_reboot", true))
+                        Shell.SU.run("reboot recovery");
+                }
+            });
+            builder.setNegativeButton(getString(R.string.button_no), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.setCancelable(false);
             alert.show();
         }
     }
