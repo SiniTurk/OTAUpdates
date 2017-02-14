@@ -16,12 +16,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Network" >
+    <PreferenceCategory android:title="@string/property_network" >
         <CheckBoxPreference
             android:title="@string/disable_mobile_title"
             android:summary="@string/disable_mobile_summary"
             android:defaultValue="true"
             android:key="disable_mobile" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/property_auto_install">
 
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="@string/enable_auto_install_title"
+            android:key="enable_auto_install"
+            android:summary="@string/enable_auto_install_summary" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="@string/wipe_dalvik_title"
+            android:key="wipe_dalvik"
+            android:dependency="enable_auto_install" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="@string/wipe_cache_title"
+            android:key="wipe_cache"
+            android:dependency="enable_auto_install" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="@string/auto_reboot_title"
+            android:key="auto_reboot"
+            android:dependency="enable_auto_install" />
+    </PreferenceCategory>
 </PreferenceScreen>

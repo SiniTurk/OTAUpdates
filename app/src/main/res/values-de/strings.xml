@@ -26,4 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="disable_mobile_summary">Ein App Neustart könnte nötig sein, um die Änderungen zu übernehmen</string>
     <string name="disable_mobile_title">Verhindere Downloads über das mobile Internet</string>
     <string name="disable_mobile_message">Downloads über das mobile Internet sind deaktiviert</string>
+    <string name="auto_install_message">Wollen sie dieses Update automatisch installieren?</string>
+    <string name="auto_install_title">Automatische Installation</string>
+    <string name="auto_reboot_title">Automatisch in das Recovery-System neustarten</string>
+    <string name="button_no">Nein</string>
+    <string name="button_yes">Ja</string>
+    <string name="enable_auto_install_summary">Benötigt ein kompatibles Recovery-System und ein gerootetes Gerät</string>
+    <string name="enable_auto_install_title">Automatische Installation aktivieren</string>
+    <string name="property_auto_install">Automatische Installation</string>
+    <string name="property_network">Netzwerk</string>
+    <string name="wipe_cache_title">Cache bei Installation formatieren</string>
+    <string name="wipe_dalvik_title">Dalvik Cache bei Installation löschen</string>
 </resources>
