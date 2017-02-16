@@ -14,15 +14,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="settings" >
 
     <PreferenceCategory android:title="@string/property_network" >
+
         <CheckBoxPreference
             android:title="@string/disable_mobile_title"
             android:summary="@string/disable_mobile_summary"
             android:defaultValue="true"
             android:key="disable_mobile" />
+
     </PreferenceCategory>
+
+
     <PreferenceCategory android:title="@string/property_auto_install">
 
         <CheckBoxPreference
@@ -45,5 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             android:title="@string/auto_reboot_title"
             android:key="auto_reboot"
             android:dependency="enable_auto_install" />
+
     </PreferenceCategory>
+
 </PreferenceScreen>
