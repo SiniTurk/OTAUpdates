@@ -22,7 +22,10 @@
 package berkantkz.otaupdates;
 
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
+
+import eu.chainfire.libsuperuser.Shell;
 
 public class Settings extends PreferenceActivity {
 
@@ -31,6 +34,12 @@ public class Settings extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
+
+        CheckBoxPreference enable_auto_install = (CheckBoxPreference) findPreference("enable_auto_install");
+        if (Shell.SU.available() == false) {
+            enable_auto_install.setEnabled(false);
+            enable_auto_install.setSummary("Only rooted/root granted devices are supported");
+        }
 
     }
 }
