@@ -20,6 +20,7 @@
  */
 package berkantkz.otaupdates;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +29,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -46,6 +49,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,6 +71,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import berkantkz.otaupdates.utils.Constants;
 import berkantkz.otaupdates.utils.Utils;
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int RESULT_SETTINGS = 1;
+    public static Activity mActivity;
     final StringBuilder build_device = new StringBuilder();
     final StringBuilder build_dl_url = new StringBuilder();
     ArrayList<OTAUpdates> otaList;
@@ -83,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     DownloadManager manager;
     DownloadManager.Request request;
     Snackbar sb_network;
+    static SharedPreferences sharedPreferences;
 
     private PullRefreshLayout refreshLayout;
     BroadcastReceiver dlcomplete = new BroadcastReceiver() {
@@ -116,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mActivity = MainActivity.this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -168,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo info = cm.getActiveNetworkInfo();
 
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -202,6 +211,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (sharedPreferences.getBoolean("force_english", true)) {
+            setEnglish();
+        } if (sharedPreferences.getBoolean("force_english", false)) {
+            setLocale();
+        }
 
     }
 
@@ -366,6 +380,25 @@ public class MainActivity extends AppCompatActivity {
             sb.show();
             refreshLayout.setRefreshing(false);
         }
+    }
+
+    public void setEnglish() {
+            Locale myLocale = new Locale("en");
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
+    }
+
+    public void setLocale() {
+        String current = Locale.getDefault().getDisplayLanguage();
+        Locale myLocale = new Locale(current);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 
 }
