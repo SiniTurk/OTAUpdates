@@ -44,9 +44,9 @@ public class Settings extends PreferenceActivity {
         SettingsActivity = Settings.this;
 
         CheckBoxPreference enable_auto_install = (CheckBoxPreference) findPreference("enable_auto_install");
-        if (Shell.SU.available() == false) {
+        if (!Shell.SU.available()) {
             enable_auto_install.setEnabled(false);
-            enable_auto_install.setSummary("Only rooted/root granted devices are supported");
+            enable_auto_install.setSummary(getString(R.string.auto_install_root_only));
         }
 
         CheckBoxPreference setEnglish = (CheckBoxPreference) findPreference("force_english");
@@ -62,8 +62,8 @@ public class Settings extends PreferenceActivity {
 
     public void force_english_dialog() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Force English");
-                builder.setMessage("Relaunch is required to take affect, you can relaunch now or later. Would you like to restart now?");
+                builder.setTitle(getString(R.string.force_english_window_title));
+                builder.setMessage(getString(R.string.force_english_window_message));
                 builder.setPositiveButton(getString(R.string.button_yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         android.os.Process.killProcess(android.os.Process.myPid());

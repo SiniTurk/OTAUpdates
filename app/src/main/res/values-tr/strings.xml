@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OTA Updates</string>
     <string name="auto_install_message">Paketi otomatik olarak kurmak istiyor musunuz?</string>
     <string name="auto_install_title">Otomatik Kurulum</string>
     <string name="auto_reboot_title">Kurtarma moduna otomatik olarak gir</string>

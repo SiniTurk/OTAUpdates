@@ -38,4 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="wipe_cache_title">Wipe Cache on Auto-Install</string>
     <string name="auto_reboot_title">Reboot to recovery automatically</string>
     <string name="available_updates">Available Updates</string>
+    <string name="auto_install_root_only">Only rooted/root granted devices are supported</string>
+    <string name="force_english_title">Force English Language</string>
+    <string name="force_english_summary">This function is not ready now and may not work</string>
+    <string name="force_english_window_title">Force English</string>
+    <string name="force_english_window_message">Relaunch is required to take affect, you can relaunch now or later. Would you like to restart now?</string>
 </resources>
