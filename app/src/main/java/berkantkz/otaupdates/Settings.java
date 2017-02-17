@@ -21,7 +21,6 @@
 
 package berkantkz.otaupdates;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -33,15 +32,11 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Settings extends PreferenceActivity {
 
-    public static Activity SettingsActivity;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
-
-        SettingsActivity = Settings.this;
 
         CheckBoxPreference enable_auto_install = (CheckBoxPreference) findPreference("enable_auto_install");
         if (!Shell.SU.available()) {

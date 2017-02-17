@@ -20,7 +20,6 @@
  */
 package berkantkz.otaupdates;
 
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int RESULT_SETTINGS = 1;
-    public static Activity mActivity;
     final StringBuilder build_device = new StringBuilder();
     final StringBuilder build_dl_url = new StringBuilder();
     ArrayList<OTAUpdates> otaList;
@@ -129,8 +127,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-
-        mActivity = MainActivity.this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
