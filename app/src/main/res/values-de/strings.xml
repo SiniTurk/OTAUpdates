@@ -43,4 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="force_english_title">Englische Sprache erzwingen</string>
     <string name="force_english_window_message">Ein Neustart der App ist nötig, du kannst jetzt oder später neustarten. Möchtest du jetzt die App neustarten?</string>
     <string name="force_english_window_title">Englisch erzwingen</string>
+    <string name="property_language">Sprache</string>
 </resources>

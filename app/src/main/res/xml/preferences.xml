@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Language">
+    <PreferenceCategory android:title="@string/property_language">
 
         <CheckBoxPreference
             android:defaultValue="false"

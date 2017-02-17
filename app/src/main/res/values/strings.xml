@@ -43,4 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="force_english_summary">This function is not ready now and may not work</string>
     <string name="force_english_window_title">Force English</string>
     <string name="force_english_window_message">Relaunch is required to take affect, you can relaunch now or later. Would you like to restart now?</string>
+    <string name="property_language">Language</string>
 </resources>
