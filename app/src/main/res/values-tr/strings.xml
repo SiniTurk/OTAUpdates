@@ -23,4 +23,10 @@
     <string name="write_access">Yazma izni</string>
     <string name="write_access_message">Kullanılabilir dosyaları kaydedebilmek için izinlerinize ihtiyacımız var. Mutlaka izin vermelisiniz, aksi hâlde uygulama çalışmayacak.</string>
     <string name="available_updates">Kullanılabilir Güncelleştirmeler</string>
+    <string name="auto_install_root_only">Sadece root edilmiş/root erişimi alınmış cihazlar için kullanılabilir</string>
+    <string name="force_english_title">İngilizce kullanmaya zorla</string>
+    <string name="force_english_summary">Bu özellik henüz tam olarak hazır değil ve bazı hatalar içerebilir</string>
+    <string name="force_english_window_title">İngilizce\'ye zorla</string>
+    <string name="force_english_window_message">Değişikliklerin uygulanması için yeniden başlatma gerekli. Şimdi ya da daha sonra yeniden başlatabilirsiniz. Şimdi yeniden başlatmak istiyor musunuz?</string>
+    <string name="property_language">Dil</string>
 </resources>
