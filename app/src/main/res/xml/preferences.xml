@@ -54,4 +54,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     </PreferenceCategory>
 
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:title="@string/md5_title"
+        android:key="md5_checking" />
+
 </PreferenceScreen>

@@ -37,4 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="property_network">Netzwerk</string>
     <string name="wipe_cache_title">Cache bei Installation formatieren</string>
     <string name="wipe_dalvik_title">Dalvik Cache bei Installation löschen</string>
+    <string name="md5_message">Das Überprüfen des MD5 Wertes ist fehlgeschlagen. Um das Paket trotzdem zu installieren, bitte deaktiviere die Überprüfung des MD5 Wertes in den Einstellungen</string>
+    <string name="md5_title">MD5 Prüfung</string>
 </resources>

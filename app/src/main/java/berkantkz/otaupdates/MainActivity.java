@@ -21,6 +21,8 @@
 package berkantkz.otaupdates;
 
 import android.app.DownloadManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,7 +39,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -59,12 +63,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import berkantkz.otaupdates.utils.Constants;
 import berkantkz.otaupdates.utils.Utils;
+import berkantkz.otaupdates.utils.MD5;
 import eu.chainfire.libsuperuser.Shell;
 
 import static berkantkz.otaupdates.utils.Constants.DL_PATH;
@@ -144,13 +150,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long id) {
                 final String url = build_dl_url.toString() + otaList.get(position).getOta_filename();
-                Thread dl_thread = new Thread(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                Utils.DownloadFromUrl(url, otaList.get(position).getOta_filename());
-                            }
-                        });
+
                 if (Build.VERSION.SDK_INT >= 23 && !checkPermission())
                     allow_write_sd();
                 else if (sharedPreferences.getBoolean("disable_mobile", true) && isMobileDataEnabled()) {
@@ -159,13 +159,32 @@ public class MainActivity extends AppCompatActivity {
                         sb_network.show();
                     }
                 else {
-                    dl_thread.start();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            trigger_autoinstall(DL_PATH + otaList.get(position).getOta_filename());
-                        }
-                    });
+                    new Thread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    create_notification(1, "OTA Updates", "Downloading " + otaList.get(position).getOta_filename());
+                                    Utils.DownloadFromUrl(url, otaList.get(position).getOta_filename());
+                                    ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(1);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (MD5.checkMD5(otaList.get(position).getOta_md5(), new File(DL_PATH + otaList.get(position).getOta_filename())) || !sharedPreferences.getBoolean("md5_checking", true))
+                                                trigger_autoinstall(DL_PATH + otaList.get(position).getOta_filename());
+                                            else {
+                                                new AlertDialog.Builder(MainActivity.this)
+                                                        .setTitle(getString(R.string.md5_title))
+                                                        .setMessage(getString(R.string.md5_message))
+                                                        .setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                            }
+                                                        })
+                                                        .show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }).start();
                 }
             }
         });
@@ -195,6 +214,28 @@ public class MainActivity extends AppCompatActivity {
             // If user hasn't allowed yet, show requester dialog.
             alert.show();
         }
+    }
+
+    private void create_notification(int id, String title, String content) {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher_50)
+                .setContentTitle(title)
+                .setContentText(content);
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(id, mBuilder.build());
     }
 
     private void trigger_autoinstall(final String file_path) {
@@ -308,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                         dls.setOta_filename(object.getString("filename"));
                         dls.setOta_version(object.getString("version"));
                         dls.setOta_timestamp(object.getString("timestamp"));
-                        //dls.setOta_channel(object.getString("channel"));
+                        dls.setOta_md5(object.getString("md5sum"));
 
                         otaList.add(dls);
 
