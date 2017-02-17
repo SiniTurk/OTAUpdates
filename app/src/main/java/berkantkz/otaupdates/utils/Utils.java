@@ -3,14 +3,15 @@
  *
  * @author berkantkz, TimSchumi
  * License: GNU General Public License, Version 3
- * <p>
+ *
+ *
  * Copyright 2017 Berkant Korkmaz, Tim Schumacher
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -21,9 +22,20 @@
 
 package berkantkz.otaupdates.utils;
 
+import android.os.Looper;
+import android.util.Log;
+
+import org.apache.http.util.ByteArrayBuffer;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class Utils implements Constants {
     /**
@@ -74,5 +86,58 @@ public class Utils implements Constants {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static void DownloadFromUrl(String download_url, String fileName)
+    {
+        if (!isMainThread()) {
+            try {
+                URL url = new URL(download_url);
+
+                if (!new File(DL_PATH).isDirectory()) {
+                    if (!new File(DL_PATH).mkdirs()) {
+                        Log.e("Downloader", "Creating the directory " + DL_PATH + "failed");
+                    }
+                }
+
+                File file = new File(DL_PATH + fileName);
+
+                long startTine = System.currentTimeMillis();
+                Log.d("Downloader", "Beginning download of " + url.getPath() + " to " + DL_PATH + fileName);
+
+                /*
+                 * Open a connection and define Streams
+                 */
+                URLConnection ucon = url.openConnection();
+                InputStream is = ucon.getInputStream();
+                BufferedInputStream bis = new BufferedInputStream(is);
+
+                /*
+                 * Read bytes until there is nothing left
+                 */
+                ByteArrayBuffer baf = new ByteArrayBuffer(50);
+                int current = 0;
+                while ((current = bis.read()) != -1) {
+                    baf.append((byte) current);
+                }
+
+                /* Convert Bytes to a String */
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(baf.toByteArray());
+                fos.close();
+
+                Log.d("Downloader", "Download finished in " + ((System.currentTimeMillis() - startTine) / 1000) + " seconds");
+            } catch (Exception e) {
+                Log.e("Downloader", "Error: " + e);
+                e.printStackTrace();
+            }
+        } else {
+            Log.e("Downloader", "Tried to run in Main Thread. Aborting...");
+        }
+    }
+
+    public static Boolean isMainThread()
+    {
+        return Looper.myLooper() == Looper.getMainLooper();
     }
 }

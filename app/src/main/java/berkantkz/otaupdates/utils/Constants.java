@@ -21,6 +21,9 @@
 
 package berkantkz.otaupdates.utils;
 
+import android.os.Environment;
+
 public interface Constants {
     public static final String URL_PROP = "ro.ota.url";
+    public static final String DL_PATH = Environment.getExternalStorageDirectory() + "/OTAUpdates/";
 }
