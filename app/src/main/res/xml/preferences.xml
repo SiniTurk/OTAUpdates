@@ -58,9 +58,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:title="Force to use English language"
+            android:title="@string/force_english_title"
             android:key="force_english"
-            android:summary="some text" />
+            android:summary="@string/force_english_summary" />
 
     </PreferenceCategory>
 

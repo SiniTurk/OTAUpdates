@@ -122,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (sharedPreferences.getBoolean("force_english", true)) {
+            setEnglish();
+        } if (sharedPreferences.getBoolean("force_english", false)) {
+            setLocale();
+        }
+
         setContentView(R.layout.activity_main);
 
         mActivity = MainActivity.this;
@@ -177,8 +186,6 @@ public class MainActivity extends AppCompatActivity {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo info = cm.getActiveNetworkInfo();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
         final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -210,12 +217,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        if (sharedPreferences.getBoolean("force_english", true)) {
-            setEnglish();
-        } if (sharedPreferences.getBoolean("force_english", false)) {
-            setLocale();
-        }
 
     }
 
