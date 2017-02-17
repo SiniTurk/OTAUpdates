@@ -37,4 +37,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="property_network">Netzwerk</string>
     <string name="wipe_cache_title">Cache bei Installation formatieren</string>
     <string name="wipe_dalvik_title">Dalvik Cache bei Installation löschen</string>
+    <string name="available_updates">Available Updates</string>
 </resources>

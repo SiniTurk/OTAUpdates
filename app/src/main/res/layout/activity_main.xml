@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_marginTop="10dp"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:text="DOWNLOAD" />
+        android:text="@string/available_updates" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinator_root"
