@@ -37,4 +37,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="wipe_dalvik_title">Wipe Dalvik on Auto-Install</string>
     <string name="wipe_cache_title">Wipe Cache on Auto-Install</string>
     <string name="auto_reboot_title">Reboot to recovery automatically</string>
+    <string name="available_updates">Available Updates</string>
 </resources>
