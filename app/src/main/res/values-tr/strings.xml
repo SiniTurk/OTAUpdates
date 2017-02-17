@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OTA Updates</string>
+    <string name="auto_install_message">Paketi otomatik olarak kurmak istiyor musunuz?</string>
+    <string name="auto_install_title">Otomatik Kurulum</string>
+    <string name="auto_reboot_title">Kurtarma moduna otomatik olarak gir</string>
+    <string name="button_no">Hayır</string>
+    <string name="button_ok">TAMAM</string>
+    <string name="button_yes">Evet</string>
+    <string name="disable_mobile_message">Mobil veri üzerinden indirme devre dışı</string>
+    <string name="disable_mobile_summary">Değişikliklerin etkili olması için uygulamayı yeniden başlatma gerekebilir</string>
+    <string name="disable_mobile_title">Mobil veri üzerinden indirmeyi devre dışı bırak</string>
+    <string name="enable_auto_install_summary">Uyumlu bir kurtarma modu gerektirir</string>
+    <string name="enable_auto_install_title">Otomatik kurmayı aktifleştir</string>
+    <string name="loading">Yükleniyor…</string>
+    <string name="loading_failed">Yüklenemedi! Bağlantınızı denetleyin.</string>
+    <string name="permissions_denied">İzin alınamadı. Uygulama çalışmayacak</string>
+    <string name="permissions_granted">İzin verildi. Dosyalar kaydedilecek</string>
+    <string name="property_auto_install">Otomatik Kurulum</string>
+    <string name="property_network">Bağlantı</string>
+    <string name="request_permission">İzin verilmeli</string>
+    <string name="wipe_cache_title">Otomatik kurulumda önbelleği temizle</string>
+    <string name="wipe_dalvik_title">Otomatik kurulumda Dalvik önbelleğini temizle</string>
+    <string name="write_access">Yazma izni</string>
+    <string name="write_access_message">Kullanılabilir dosyaları kaydedebilmek için izinlerinize ihtiyacımız var. Mutlaka izin vermelisiniz, aksi hâlde uygulama çalışmayacak.</string>
+    <string name="available_updates">Kullanılabilir Güncelleştirmeler</string>
+</resources>
