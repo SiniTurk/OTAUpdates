@@ -21,30 +21,29 @@
 package berkantkz.otaupdates;
 
 import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -65,6 +64,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -72,7 +72,10 @@ import java.util.Locale;
 
 import berkantkz.otaupdates.utils.Constants;
 import berkantkz.otaupdates.utils.Utils;
+import berkantkz.otaupdates.utils.MD5;
 import eu.chainfire.libsuperuser.Shell;
+
+import static berkantkz.otaupdates.utils.Constants.DL_PATH;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,33 +89,6 @@ public class MainActivity extends AppCompatActivity {
     DownloadManager.Request request;
     Snackbar sb_network;
     static SharedPreferences sharedPreferences;
-
-    BroadcastReceiver dlcomplete = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                // Trigger Installation if Root was detected
-                String filename = null;
-
-                Bundle extras = intent.getExtras();
-                DownloadManager.Query q = new DownloadManager.Query();
-                q.setFilterById(extras.getLong(DownloadManager.EXTRA_DOWNLOAD_ID));
-                Cursor c = manager.query(q);
-
-                if (c.moveToFirst()) {
-                    int status = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS));
-                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        filename = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                    }
-                }
-                c.close();
-
-                trigger_autoinstall(filename);
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
         build_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/builds/");
-
-        registerReceiver(dlcomplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
         otaList = new ArrayList<>();
         get_ota_builds();
@@ -174,30 +148,42 @@ public class MainActivity extends AppCompatActivity {
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, final int position, long id) {
-                String url = build_dl_url.toString() + otaList.get(position).getOta_filename();
-                request = new DownloadManager.Request(Uri.parse(url));
-                request.setDescription(otaList.get(position).getOta_version() + " " + "-" + " " + otaList.get(position).getOta_timestamp());
-                request.setTitle(otaList.get(position).getOta_filename());
+                final String url = build_dl_url.toString() + otaList.get(position).getOta_filename();
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    request.allowScanningByMediaScanner();
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                }
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, otaList.get(position).getOta_filename());
-                // get download service and enqueue file
-                manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 if (Build.VERSION.SDK_INT >= 23 && !checkPermission())
                     allow_write_sd();
-                else if (sharedPreferences.getBoolean("disable_mobile", true)) {
-                    if (isMobileDataEnabled()) {
+                else if (sharedPreferences.getBoolean("disable_mobile", true) && isMobileDataEnabled()) {
                         sb_network = Snackbar.make(coordinator_root, getString(R.string.disable_mobile_message), Snackbar.LENGTH_SHORT);
                         sb_network.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
                         sb_network.show();
-                    } else {
-                        manager.enqueue(request);
                     }
-                } else {
-                    manager.enqueue(request);
+                else {
+                    new Thread(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    create_notification(1, "OTA Updates", "Downloading " + otaList.get(position).getOta_filename());
+                                    Utils.DownloadFromUrl(url, otaList.get(position).getOta_filename());
+                                    ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(1);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (MD5.checkMD5(otaList.get(position).getOta_md5(), new File(DL_PATH + otaList.get(position).getOta_filename())) || !sharedPreferences.getBoolean("md5_checking", true))
+                                                trigger_autoinstall(DL_PATH + otaList.get(position).getOta_filename());
+                                            else {
+                                                new AlertDialog.Builder(MainActivity.this)
+                                                        .setTitle(getString(R.string.md5_title))
+                                                        .setMessage(getString(R.string.md5_message))
+                                                        .setNeutralButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int which) {
+                                                            }
+                                                        })
+                                                        .show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }).start();
                 }
             }
         });
@@ -226,6 +212,28 @@ public class MainActivity extends AppCompatActivity {
             // If user hasn't allowed yet, show requester dialog.
             alert.show();
         }
+    }
+
+    private void create_notification(int id, String title, String content) {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher_50)
+                .setContentTitle(title)
+                .setContentText(content);
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(id, mBuilder.build());
     }
 
     private void trigger_autoinstall(final String file_path) {
@@ -339,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                         dls.setOta_filename(object.getString("filename"));
                         dls.setOta_version(object.getString("version"));
                         dls.setOta_timestamp(object.getString("timestamp"));
-                        //dls.setOta_channel(object.getString("channel"));
+                        dls.setOta_md5(object.getString("md5sum"));
 
                         otaList.add(dls);
 

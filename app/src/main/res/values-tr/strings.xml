@@ -29,4 +29,6 @@
     <string name="force_english_window_title">İngilizce\'ye zorla</string>
     <string name="force_english_window_message">Değişikliklerin uygulanması için yeniden başlatma gerekli. Şimdi ya da daha sonra yeniden başlatabilirsiniz. Şimdi yeniden başlatmak istiyor musunuz?</string>
     <string name="property_language">Dil</string>
+    <string name="md5_message">MD5 denetlemesinde hata oluştu. Hâlâ flaşlamak istiyorsanız, lütfen MD5 denetlemesini ayarlardan devre dışı bırakın</string>
+    <string name="md5_title">MD5 Denetlemesi</string>
 </resources>

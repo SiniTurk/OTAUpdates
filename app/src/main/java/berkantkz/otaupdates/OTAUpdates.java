@@ -25,7 +25,7 @@ public class OTAUpdates {
     private String ota_filename;
     private String ota_timestamp;
     private String ota_version;
-    private String ota_channel;
+    private String ota_md5;
 
     public OTAUpdates() {
 
@@ -60,13 +60,13 @@ public class OTAUpdates {
         this.ota_version = ota_version;
     }
 
-    //ota_channel
-    public String getOta_channel() {
-        return ota_channel;
+    //ota_md5
+    public String getOta_md5() {
+        return ota_md5;
+    }
+    public void setOta_md5(String ota_md5) {
+        this.ota_md5 = ota_md5;
     }
 
-    public void setOta_channel(String ota_channel) {
-        this.ota_channel = ota_channel;
-    }
 }
 
