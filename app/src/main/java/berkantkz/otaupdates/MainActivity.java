@@ -56,8 +56,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.baoyz.widget.PullRefreshLayout;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     Snackbar sb_network;
     static SharedPreferences sharedPreferences;
 
-    private PullRefreshLayout refreshLayout;
     BroadcastReceiver dlcomplete = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -146,15 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new OTAUpdatesAdapter(getApplicationContext(), R.layout.row, otaList);
         ota_list.setAdapter(adapter);
-
-        refreshLayout = (PullRefreshLayout) findViewById(R.id.app_swipe_refresh);
-        refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_MATERIAL);
-        refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                get_ota_builds();
-            }
-        });
 
         ImageView btn_refresh = (ImageView) findViewById(R.id.btn_refresh);
         btn_refresh.setOnClickListener(new View.OnClickListener() {
@@ -373,12 +361,10 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
-            refreshLayout.setRefreshing(false);
             if (!result)
                 Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_LONG);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
-            refreshLayout.setRefreshing(false);
         }
     }
 

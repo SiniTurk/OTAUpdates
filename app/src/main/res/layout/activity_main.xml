@@ -45,11 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_height="match_parent"
         android:layout_below="@id/text_download">
 
-        <com.baoyz.widget.PullRefreshLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/app_swipe_refresh">
-
             <LinearLayout
                 android:id="@+id/linear_root"
                 android:layout_width="match_parent"
@@ -66,6 +61,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         android:divider="@color/colorSecond"
                         android:dividerHeight="3px" />
             </LinearLayout>
-    </com.baoyz.widget.PullRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>
