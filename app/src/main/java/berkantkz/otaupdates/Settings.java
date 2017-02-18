@@ -41,6 +41,7 @@ public class Settings extends PreferenceActivity {
         CheckBoxPreference enable_auto_install = (CheckBoxPreference) findPreference("enable_auto_install");
         if (!Shell.SU.available()) {
             enable_auto_install.setEnabled(false);
+            enable_auto_install.setChecked(false);
             enable_auto_install.setSummary(getString(R.string.auto_install_root_only));
         }
 
