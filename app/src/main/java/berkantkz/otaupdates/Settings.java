@@ -49,15 +49,7 @@ public class Settings extends PreferenceActivity {
         setEnglish.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                force_english_dialog();
-                return true;
-            }
-        });
-
-    }
-
-    public void force_english_dialog() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
                 builder.setTitle(getString(R.string.force_english_window_title));
                 builder.setMessage(getString(R.string.force_english_window_message));
                 builder.setPositiveButton(getString(R.string.button_yes), new DialogInterface.OnClickListener() {
@@ -72,6 +64,9 @@ public class Settings extends PreferenceActivity {
                 AlertDialog alert = builder.create();
                 alert.setCancelable(true);
                 alert.show();
+                return true;
             }
+        });
 
+    }
 }
