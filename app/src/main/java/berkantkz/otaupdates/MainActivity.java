@@ -337,10 +337,14 @@ public class MainActivity extends AppCompatActivity {
                 if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
-
-                    JSONObject jsono = new JSONObject(data);
-                    JSONArray jarray = jsono.getJSONArray("result");
                     otaList.clear();
+                    JSONObject jsono = new JSONObject(data);
+                    JSONArray jarray;
+                    try {
+                        jarray = jsono.getJSONArray("result");
+                    } catch (JSONException e) {
+                        return false;
+                    }
 
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
