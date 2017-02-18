@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="md5_title">MD5 Prüfung</string>
     <string name="available_updates">Verfügbare Updates</string>
     <string name="auto_install_root_only">Diese Option ist nur verfügbar  wenn Root-Rechte gegeben wurden</string>
-    <string name="force_english_summary">Diese Funktion ist noch nicht fertig und könnte nicht funktionieren</string>
     <string name="force_english_title">Englische Sprache erzwingen</string>
     <string name="force_english_window_message">Ein Neustart der App ist nötig, du kannst jetzt oder später neustarten. Möchtest du jetzt die App neustarten?</string>
     <string name="force_english_window_title">Englisch erzwingen</string>

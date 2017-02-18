@@ -96,10 +96,13 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (sharedPreferences.getBoolean("force_english", true)) {
-            setEnglish();
-        } if (sharedPreferences.getBoolean("force_english", false)) {
-            setLocale();
+        if (sharedPreferences.getBoolean("force_english", false)) {
+            Locale myLocale = new Locale("en");
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
         }
 
         setContentView(R.layout.activity_main);
@@ -371,25 +374,6 @@ public class MainActivity extends AppCompatActivity {
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
-    }
-
-    public void setEnglish() {
-            Locale myLocale = new Locale("en");
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
-    }
-
-    public void setLocale() {
-        String current = Locale.getDefault().getDisplayLanguage();
-        Locale myLocale = new Locale(current);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
     }
 
 }
