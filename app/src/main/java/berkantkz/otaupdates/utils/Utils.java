@@ -90,20 +90,22 @@ public class Utils implements Constants {
 
     public static void DownloadFromUrl(String download_url, String fileName)
     {
+        final String TAG = "Downloader";
+
         if (!isMainThread()) {
             try {
                 URL url = new URL(download_url);
 
                 if (!new File(DL_PATH).isDirectory()) {
                     if (!new File(DL_PATH).mkdirs()) {
-                        Log.e("Downloader", "Creating the directory " + DL_PATH + "failed");
+                        Log.e(TAG, "Creating the directory " + DL_PATH + "failed");
                     }
                 }
 
                 File file = new File(DL_PATH + fileName);
 
                 long startTine = System.currentTimeMillis();
-                Log.d("Downloader", "Beginning download of " + url.getPath() + " to " + DL_PATH + fileName);
+                Log.d(TAG, "Beginning download of " + url.getPath() + " to " + DL_PATH + fileName);
 
                 /*
                  * Open a connection and define Streams
@@ -126,13 +128,13 @@ public class Utils implements Constants {
                 fos.write(baf.toByteArray());
                 fos.close();
 
-                Log.d("Downloader", "Download finished in " + ((System.currentTimeMillis() - startTine) / 1000) + " seconds");
+                Log.d(TAG, "Download finished in " + ((System.currentTimeMillis() - startTine) / 1000) + " seconds");
             } catch (Exception e) {
-                Log.e("Downloader", "Error: " + e);
+                Log.e(TAG, "Error: " + e);
                 e.printStackTrace();
             }
         } else {
-            Log.e("Downloader", "Tried to run in Main Thread. Aborting...");
+            Log.e(TAG, "Tried to run in Main Thread. Aborting...");
         }
     }
 

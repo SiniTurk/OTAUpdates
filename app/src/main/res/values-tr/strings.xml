@@ -13,8 +13,6 @@
     <string name="enable_auto_install_title">Otomatik kurmayı aktifleştir</string>
     <string name="loading">Yükleniyor…</string>
     <string name="loading_failed">Yüklenemedi! Bağlantınızı denetleyin.</string>
-    <string name="permissions_denied">İzin alınamadı. Uygulama çalışmayacak</string>
-    <string name="permissions_granted">İzin verildi. Dosyalar kaydedilecek</string>
     <string name="property_auto_install">Otomatik Kurulum</string>
     <string name="property_network">Bağlantı</string>
     <string name="request_permission">İzin verilmeli</string>

@@ -302,9 +302,9 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(getString(R.string.app_name), getString(R.string.permissions_granted));
+                    Log.d(getString(R.string.app_name), "Permission granted. Files can be saved");
                 } else {
-                    Log.e(getString(R.string.app_name), getString(R.string.permissions_denied));
+                    Log.e(getString(R.string.app_name), "Permission denied. The App won\'t work");
                     finish();
                 }
                 break;

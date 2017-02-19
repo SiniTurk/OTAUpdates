@@ -17,9 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <resources>
     <string name="loading">Lade…</string>
     <string name="loading_failed">Laden fehlgeschlagen! Bitte überprüfe deine Internetverbindung</string>
-    <string name="permissions_granted">Rechte gewährt. Dateien können gespeichert werden</string>
     <string name="request_permission">Muss erlaubt werden</string>
-    <string name="permissions_denied">Rechte verweigert. Die App wird nicht funktionieren</string>
     <string name="write_access_message">Wir brauchen deine Erlaubnis um verfügbare ROMs herunterzuladen. Du musst dies erlauben, sonst wird die App nicht funktionieren.</string>
     <string name="write_access">Schreibzugriff</string>
     <string name="button_ok">OK</string>

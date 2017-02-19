@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="loading">Loading…</string>
     <string name="loading_failed">Failed to load! Check your connection first</string>
     <string name="request_permission">Needs to be allowed</string>
-    <string name="permissions_granted">Permission granted. Files can be saved</string>
-    <string name="permissions_denied">Permission denied. The App won\'t work</string>
     <string name="button_ok">OK</string>
     <string name="disable_mobile_title">Disable downloading over mobile network</string>
     <string name="disable_mobile_summary">This may require relaunching the app to take effect</string>
