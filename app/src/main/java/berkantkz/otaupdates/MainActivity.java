@@ -20,7 +20,6 @@
  */
 package berkantkz.otaupdates;
 
-import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -31,7 +30,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -85,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
     final StringBuilder build_dl_url = new StringBuilder();
     ArrayList<OTAUpdates> otaList;
     OTAUpdatesAdapter adapter;
-    DownloadManager manager;
-    DownloadManager.Request request;
     Snackbar sb_network;
     static SharedPreferences sharedPreferences;
 
@@ -142,10 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(settings, RESULT_SETTINGS);
             }
         });
-
-        ConnectivityManager cm = (ConnectivityManager) MainActivity.this
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo info = cm.getActiveNetworkInfo();
 
         final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
