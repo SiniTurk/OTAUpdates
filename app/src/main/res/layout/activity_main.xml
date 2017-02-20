@@ -45,6 +45,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_height="match_parent"
         android:layout_below="@id/text_download">
 
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:visibility="visible"/>
+
             <LinearLayout
                 android:id="@+id/linear_root"
                 android:layout_width="match_parent"
