@@ -20,7 +20,6 @@
  */
 package berkantkz.otaupdates;
 
-import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -31,7 +30,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -86,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
     final StringBuilder build_dl_url = new StringBuilder();
     ArrayList<OTAUpdates> otaList;
     OTAUpdatesAdapter adapter;
-    DownloadManager manager;
-    DownloadManager.Request request;
     Snackbar sb_network;
     Snackbar sb_no_su;
     static SharedPreferences sharedPreferences;
@@ -99,10 +95,13 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (sharedPreferences.getBoolean("force_english", true)) {
-            setEnglish();
-        } if (sharedPreferences.getBoolean("force_english", false)) {
-            setLocale();
+        if (sharedPreferences.getBoolean("force_english", false)) {
+            Locale myLocale = new Locale("en");
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = myLocale;
+            res.updateConfiguration(conf, dm);
         }
 
         setContentView(R.layout.activity_main);
@@ -142,10 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(settings, RESULT_SETTINGS);
             }
         });
-
-        ConnectivityManager cm = (ConnectivityManager) MainActivity.this
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo info = cm.getActiveNetworkInfo();
 
         final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -310,9 +305,9 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(getString(R.string.app_name), getString(R.string.permissions_granted));
+                    Log.d(getString(R.string.app_name), "Permission granted. Files can be saved");
                 } else {
-                    Log.e(getString(R.string.app_name), getString(R.string.permissions_denied));
+                    Log.e(getString(R.string.app_name), "Permission denied. The App won\'t work");
                     finish();
                 }
                 break;
@@ -349,10 +344,14 @@ public class MainActivity extends AppCompatActivity {
                 if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
-
-                    JSONObject jsono = new JSONObject(data);
-                    JSONArray jarray = jsono.getJSONArray("result");
                     otaList.clear();
+                    JSONObject jsono = new JSONObject(data);
+                    JSONArray jarray;
+                    try {
+                        jarray = jsono.getJSONArray("result");
+                    } catch (JSONException e) {
+                        return true;
+                    }
 
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
@@ -389,25 +388,6 @@ public class MainActivity extends AppCompatActivity {
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
-    }
-
-    public void setEnglish() {
-            Locale myLocale = new Locale("en");
-            Resources res = getResources();
-            DisplayMetrics dm = res.getDisplayMetrics();
-            Configuration conf = res.getConfiguration();
-            conf.locale = myLocale;
-            res.updateConfiguration(conf, dm);
-    }
-
-    public void setLocale() {
-        String current = Locale.getDefault().getDisplayLanguage();
-        Locale myLocale = new Locale(current);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
     }
 
 }

@@ -22,28 +22,21 @@
 package berkantkz.otaupdates;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
-public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
-    ArrayList<OTAUpdates> otalist;
-    LayoutInflater vi;
-    int Resource;
-    ViewHolder holder;
+class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
+    private ArrayList<OTAUpdates> otalist;
+    private LayoutInflater vi;
+    private int Resource;
 
-    public OTAUpdatesAdapter(Context context, int resource, ArrayList<OTAUpdates> objects) {
+    OTAUpdatesAdapter(Context context, int resource, ArrayList<OTAUpdates> objects) {
         super(context, resource, objects);
         vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resource = resource;
@@ -55,6 +48,7 @@ public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // convert view = design
         View v = convertView;
+        ViewHolder holder;
         if (v == null) {
             holder = new ViewHolder();
             v = vi.inflate(Resource, null);
@@ -71,10 +65,10 @@ public class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
         return v;
     }
 
-    static class ViewHolder {
-        public TextView ota_filename;
-        public TextView ota_version;
-        public TextView ota_timestamp;
+    private static class ViewHolder {
+        TextView ota_filename;
+        TextView ota_version;
+        TextView ota_timestamp;
 
     }
 }
