@@ -88,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
     DownloadManager manager;
     DownloadManager.Request request;
     Snackbar sb_network;
+    Snackbar sb_no_su;
     static SharedPreferences sharedPreferences;
+    CoordinatorLayout coordinator_root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,23 +240,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void trigger_autoinstall(final String file_path) {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (Shell.SU.available() && sharedPreferences.getBoolean("enable_auto_install", true) ) {
+        final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
+        if (sharedPreferences.getBoolean("enable_auto_install", true) ) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getString(R.string.auto_install_title));
             builder.setMessage(getString(R.string.auto_install_message));
             builder.setPositiveButton(getString(R.string.button_yes), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    Shell.SU.run("rm -rf /cache/recovery/openrecoveryscript");
-                    Shell.SU.run("echo \"install "+file_path+"\" >> /cache/recovery/openrecoveryscript");
 
-                    if (sharedPreferences.getBoolean("wipe_cache", true))
-                        Shell.SU.run("echo \"wipe cache\" >> /cache/recovery/openrecoveryscript");
+                    if (Shell.SU.available()) {
+                        Shell.SU.run("rm -rf /cache/recovery/openrecoveryscript");
+                        Shell.SU.run("echo \"install " + file_path + "\" >> /cache/recovery/openrecoveryscript");
 
-                    if (sharedPreferences.getBoolean("wipe_dalvik", true))
-                        Shell.SU.run("echo \"wipe dalvik\" >> /cache/recovery/openrecoveryscript");
+                        if (sharedPreferences.getBoolean("wipe_cache", true))
+                            Shell.SU.run("echo \"wipe cache\" >> /cache/recovery/openrecoveryscript");
 
-                    if (sharedPreferences.getBoolean("auto_reboot", true))
-                        Shell.SU.run("reboot recovery");
+                        if (sharedPreferences.getBoolean("wipe_dalvik", true))
+                            Shell.SU.run("echo \"wipe dalvik\" >> /cache/recovery/openrecoveryscript");
+
+                        if (sharedPreferences.getBoolean("auto_reboot", true))
+                            Shell.SU.run("reboot recovery");
+                    } else {
+                        sb_no_su = Snackbar.make(coordinator_root, "SU access is not available", Snackbar.LENGTH_SHORT);
+                        sb_no_su.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                        sb_no_su.show();
+                    }
                 }
             });
             builder.setNegativeButton(getString(R.string.button_no), new DialogInterface.OnClickListener() {
