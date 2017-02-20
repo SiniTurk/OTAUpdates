@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         build_device.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/api/")
-                .append(Build.PRODUCT).append("/")
+                .append(Build.DEVICE).append("/")
                 .append(Build.TIME / 1000);
 
         build_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
