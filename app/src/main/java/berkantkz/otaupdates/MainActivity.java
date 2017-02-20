@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         jarray = jsono.getJSONArray("result");
                     } catch (JSONException e) {
-                        return false;
+                        return true;
                     }
 
                     for (int i = 0; i < jarray.length(); i++) {
