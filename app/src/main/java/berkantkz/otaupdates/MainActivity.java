@@ -324,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
         CoordinatorLayout coordinator_root;
         Snackbar sb;
         ProgressBar pb;
+        ListView ota_list;
 
         @Override
         protected void onPreExecute() {
@@ -381,6 +382,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
+            ota_list = (ListView) findViewById(R.id.ota_list);
+            ota_list.setVisibility((adapter.isEmpty())?View.GONE:View.VISIBLE);
             if (!result)
                 Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_SHORT);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
