@@ -53,6 +53,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         build_device.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/api/")
-                .append(Build.DEVICE).append("/")
+                .append(Build.PRODUCT).append("/")
                 .append(Build.TIME / 1000);
 
         build_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
@@ -322,14 +323,17 @@ public class MainActivity extends AppCompatActivity {
 
         CoordinatorLayout coordinator_root;
         Snackbar sb;
+        ProgressBar pb;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            sb = Snackbar.make(coordinator_root, getString(R.string.loading), Snackbar.LENGTH_LONG);
+            sb = Snackbar.make(coordinator_root, getString(R.string.loading), Snackbar.LENGTH_SHORT);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
+            pb = (ProgressBar) findViewById(R.id.pb);
+            pb.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -376,8 +380,9 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
+            pb.setVisibility(View.GONE);
             if (!result)
-                Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_LONG);
+                Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_SHORT);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
