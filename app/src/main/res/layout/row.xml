@@ -44,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
@@ -59,7 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     android:id="@+id/ota_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
                     android:text="7.1"/>
@@ -69,7 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     android:layout_height="wrap_content"
                     android:text="-"
                     android:textSize="20sp"
-                    android:textColor="@color/gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"/>
 
@@ -77,7 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     android:id="@+id/ota_timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
                     android:text="1479259417"/>

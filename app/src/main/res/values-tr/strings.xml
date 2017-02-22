@@ -28,4 +28,10 @@
     <string name="property_language">Dil</string>
     <string name="md5_message">MD5 denetlemesinde hata oluştu. Hâlâ flaşlamak istiyorsanız, lütfen MD5 denetlemesini ayarlardan devre dışı bırakın</string>
     <string name="md5_title">MD5 Denetlemesi</string>
+    <string name="switch_apptheme_light_window_title">Açık temeya geç</string>
+    <string name="switch_apptheme_dark_window_title">Koyu temaya geç</string>
+    <string name="switch_apptheme_light_window_message">Değişikliklerin uygulanması için yeniden başlatma gerekli. Şimdi ya da daha sonra yeniden başlatabilirsiniz. Şimdi yeniden başlatmak istiyor musunuz?</string>
+    <string name="property_visualization">Kişiselleştirme</string>
+    <string name="apptheme_light_title">Açık temayı kullan</string>
+    <string name="no_item_available">Kullanılabilir öğe yok</string>
 </resources>

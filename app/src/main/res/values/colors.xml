@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <color name="gray">#cecece</color>
     <color name="darkGrey">#1a1a1a</color>
     <color name="lightGrey">#232426</color>
+    <color name="colorFirst">#0a566b</color>
     <color name="colorSecond">#0b6d88</color>
     <color name="Grey2">#bababa</color>
 </resources>

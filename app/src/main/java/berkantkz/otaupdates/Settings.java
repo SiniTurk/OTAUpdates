@@ -34,6 +34,13 @@ public class Settings extends PreferenceActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        if (MainActivity.sharedPreferences.getBoolean("apptheme_light", true)) {
+            setTheme(R.style.AppTheme_Light);
+        } else {
+            setTheme(R.style.AppTheme_Dark);
+        }
+
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
@@ -50,8 +57,39 @@ public class Settings extends PreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
-                builder.setTitle(getString(R.string.force_english_window_title));
+                if (MainActivity.sharedPreferences.getBoolean("force_english", true)) {
+                    builder.setTitle(getString(R.string.force_english_window_title));
+                } else {
+                    builder.setTitle(getString(R.string.force_default_window_title));
+                }
                 builder.setMessage(getString(R.string.force_english_window_message));
+                builder.setPositiveButton(getString(R.string.button_yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                });
+                builder.setNegativeButton(getString(R.string.button_no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.setCancelable(true);
+                alert.show();
+                return true;
+            }
+        });
+
+        CheckBoxPreference apptheme_light = (CheckBoxPreference) findPreference("apptheme_light");
+        apptheme_light.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+                if (MainActivity.sharedPreferences.getBoolean("apptheme_light", true)) {
+                    builder.setTitle(getString(R.string.switch_apptheme_light_window_title));
+                } else {
+                    builder.setTitle(getString(R.string.switch_apptheme_dark_window_title));
+                }
+                builder.setMessage(getString(R.string.switch_apptheme_light_window_message));
                 builder.setPositiveButton(getString(R.string.button_yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         android.os.Process.killProcess(android.os.Process.myPid());

@@ -22,15 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="berkantkz.otaupdates.MainActivity">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/tool_bar" />
-
     <TextView
         android:id="@+id/text_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tool_bar"
         android:textColor="@color/colorSecond"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
@@ -73,16 +68,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         android:dividerHeight="3px" />
 
                 <ImageView
+                    android:id="@android:id/empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_not_interested_white"
+                    android:src="?attr/no_list_item"
                     android:layout_gravity="center"
                     android:foregroundGravity="center" />
 
                 <TextView
+                    android:id="@android:id/empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No items available"
+                    android:text="@string/no_item_available"
                     android:textSize="10pt"
                     android:textStyle="bold"
                     android:layout_gravity="center"
