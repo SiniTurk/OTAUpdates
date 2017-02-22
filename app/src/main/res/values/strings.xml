@@ -39,8 +39,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="auto_install_root_only">Only rooted/root granted devices are supported</string>
     <string name="force_english_title">Force English Language</string>
     <string name="force_english_window_title">Force English</string>
+    <string name="force_default_window_title">Force Default Language</string>
     <string name="force_english_window_message">Relaunch is required to take affect, you can relaunch now or later. Would you like to restart now?</string>
     <string name="property_language">Language</string>
     <string name="md5_title">MD5 Check</string>
     <string name="md5_message">MD5 Check failed. To flash the package anyways, please disable checking the MD5 in Settings</string>
+    <string name="switch_apptheme_light_window_title">Switch to Light theme</string>
+    <string name="switch_apptheme_dark_window_title">Switch to Dark theme</string>
+    <string name="switch_apptheme_light_window_message">Relaunch is required to take affect, you can relaunch now or later. Would you like to restart now?</string>
+    <string name="property_visualization">Visualization</string>
+    <string name="apptheme_light_title">Use Light theme</string>
+    <string name="no_item_available">No items available</string>
 </resources>

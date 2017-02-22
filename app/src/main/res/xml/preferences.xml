@@ -68,4 +68,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         android:key="md5_checking"
         android:title="@string/md5_title" />
 
+    <PreferenceCategory android:title="@string/property_visualization">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="@string/apptheme_light_title"
+            android:key="apptheme_light" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

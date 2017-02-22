@@ -19,23 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <!-- Base application theme. -->
     <style name="AppTheme_Dark" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorSecond</item>
+        <item name="colorPrimary">@color/lightGrey</item>
         <item name="colorPrimaryDark">@color/lightGrey</item>
         <item name="colorAccent">@color/colorSecond</item>
         <item name="android:navigationBarColor">@color/lightGrey</item>
 
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="no_list_item">@drawable/ic_not_interested_white</item>
     </style>
 
     <style name="AppTheme_Light" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/colorFirst</item>
         <item name="colorPrimary">@color/colorSecond</item>
-        <item name="colorPrimaryDark">@color/Grey2</item>
         <item name="colorAccent">@color/colorSecond</item>
+        <item name="android:navigationBarColor">@color/colorSecond</item>
 
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="no_list_item">@drawable/ic_not_interested_black</item>
     </style>
 
 </resources>

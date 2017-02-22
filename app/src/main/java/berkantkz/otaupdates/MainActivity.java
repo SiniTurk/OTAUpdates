@@ -39,17 +39,18 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -70,8 +71,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import berkantkz.otaupdates.utils.Constants;
-import berkantkz.otaupdates.utils.Utils;
 import berkantkz.otaupdates.utils.MD5;
+import berkantkz.otaupdates.utils.Utils;
 import eu.chainfire.libsuperuser.Shell;
 
 import static berkantkz.otaupdates.utils.Constants.DL_PATH;
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (sharedPreferences.getBoolean("force_english", false)) {
+        if (sharedPreferences.getBoolean("force_english", true)) {
             Locale myLocale = new Locale("en");
             Resources res = getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
@@ -104,10 +105,13 @@ public class MainActivity extends AppCompatActivity {
             res.updateConfiguration(conf, dm);
         }
 
-        setContentView(R.layout.activity_main);
+        if (sharedPreferences.getBoolean("apptheme_light", true)) {
+            setTheme(R.style.AppTheme_Light);
+        } else {
+            setTheme(R.style.AppTheme_Dark);
+        }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_main);
 
         build_device.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/api/")
@@ -124,23 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new OTAUpdatesAdapter(getApplicationContext(), R.layout.row, otaList);
         ota_list.setAdapter(adapter);
-
-        ImageView btn_refresh = (ImageView) findViewById(R.id.btn_refresh);
-        btn_refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                get_ota_builds();
-            }
-        });
-
-        ImageView btn_settings = (ImageView) findViewById(R.id.btn_settings);
-        btn_settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent settings = new Intent(MainActivity.this, Settings.class);
-                startActivityForResult(settings, RESULT_SETTINGS);
-            }
-        });
 
         final CoordinatorLayout coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
         ota_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -388,6 +375,29 @@ public class MainActivity extends AppCompatActivity {
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // show menu when menu button is pressed
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // display a message when a button was pressed
+        String message = "";
+        if (item.getItemId() == R.id.action_refresh) {
+            get_ota_builds();
+        }
+        else if (item.getItemId() == R.id.action_settings) {
+            Intent settings = new Intent(MainActivity.this, Settings.class);
+            startActivityForResult(settings, RESULT_SETTINGS);
+        }
+
+        return true;
     }
 
 }
