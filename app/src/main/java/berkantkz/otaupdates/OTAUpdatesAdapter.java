@@ -23,10 +23,12 @@ package berkantkz.otaupdates;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -55,13 +57,17 @@ class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
             holder.ota_filename = (TextView) v.findViewById(R.id.ota_filename);
             holder.ota_version = (TextView) v.findViewById(R.id.ota_version);
             holder.ota_timestamp = (TextView) v.findViewById(R.id.ota_timestamp);
+            holder.ota_image = (ImageView) v.findViewById(R.id.ota_image);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
         holder.ota_filename.setText(otalist.get(position).getOta_filename());
-        holder.ota_version.setText(otalist.get(position).getOta_version());
         holder.ota_timestamp.setText(otalist.get(position).getOta_timestamp());
+        holder.ota_version.setText(otalist.get(position).isDelta() ? "DELTA" : otalist.get(position).getOta_version());
+        if(otalist.get(position).isDelta())
+            holder.ota_image.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.delta_image));
+
         return v;
     }
 
@@ -69,6 +75,6 @@ class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
         TextView ota_filename;
         TextView ota_version;
         TextView ota_timestamp;
-
+        ImageView ota_image;
     }
 }
