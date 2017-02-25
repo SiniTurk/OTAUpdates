@@ -26,6 +26,8 @@ public class OTAUpdates {
     private String ota_timestamp;
     private String ota_version;
     private String ota_md5;
+    private String ota_old_incremental;
+    private Boolean delta = false;
 
     OTAUpdates() {
 
@@ -68,5 +70,20 @@ public class OTAUpdates {
         this.ota_md5 = ota_md5;
     }
 
+    //ota_old_incremental
+    String getOta_old_incremental() {
+        return ota_old_incremental;
+    }
+    void  setOta_old_incremental(String ota_old_incremental) {
+        this.ota_old_incremental = ota_old_incremental;
+    }
+
+    public Boolean isDelta() {
+        return delta;
+    }
+
+    public void setDelta(Boolean delta) {
+        this.delta = delta;
+    }
 }
 

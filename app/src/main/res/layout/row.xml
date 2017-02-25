@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_marginTop="10dp">
 
         <ImageView
-            android:id="@+id/ota_channel"
+            android:id="@+id/ota_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/ic_launcher"

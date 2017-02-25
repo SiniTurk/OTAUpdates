@@ -81,13 +81,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int RESULT_SETTINGS = 1;
-    final StringBuilder build_device = new StringBuilder();
+    final StringBuilder build_url = new StringBuilder();
     final StringBuilder build_dl_url = new StringBuilder();
-    ArrayList<OTAUpdates> otaList;
+    final StringBuilder delta_url = new StringBuilder();
+    final StringBuilder delta_dl_url = new StringBuilder();
+    static ArrayList<OTAUpdates> otaList;
     OTAUpdatesAdapter adapter;
     Snackbar sb_network;
     Snackbar sb_no_su;
     static SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        build_device.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
+        build_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/api/")
                 .append(Build.DEVICE).append("/")
                 .append(Build.TIME / 1000);
@@ -119,8 +122,15 @@ public class MainActivity extends AppCompatActivity {
         build_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
                 .append("/builds/");
 
+        delta_url.append((Utils.doesPropExist(Constants.URL_PROP) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url)))
+                .append("/delta/")
+                .append(Build.VERSION.INCREMENTAL);
+
+        delta_dl_url.append((Utils.doesPropExist(Constants.URL_PROP)) ? Utils.getProp(Constants.URL_PROP) : getString(R.string.download_url))
+                .append("/deltas/");
+
         otaList = new ArrayList<>();
-        get_ota_builds();
+        get_builds();
 
         final ListView ota_list = (ListView) findViewById(R.id.ota_list);
 
@@ -173,8 +183,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void get_ota_builds() {
-        new JSONAsyncTask().execute(build_device.toString());
+    private void get_builds() {
+        otaList.clear();
+        new JSONAsyncTask().execute(delta_url.toString());
+        new JSONAsyncTask().execute(build_url.toString());
     }
 
     private void allow_write_sd() {
@@ -329,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
-                    otaList.clear();
                     JSONObject jsono = new JSONObject(data);
                     JSONArray jarray;
                     try {
@@ -344,9 +355,15 @@ public class MainActivity extends AppCompatActivity {
                         OTAUpdates dls = new OTAUpdates();
 
                         dls.setOta_filename(object.getString("filename"));
-                        dls.setOta_version(object.getString("version"));
                         dls.setOta_timestamp(object.getString("timestamp"));
                         dls.setOta_md5(object.getString("md5sum"));
+
+                        if (object.isNull("old_incremental")) {
+                            dls.setOta_version(object.getString("version"));
+                        } else {
+                            dls.setOta_old_incremental(object.getString("old_incremental"));
+                            dls.setDelta(true);
+                        }
 
                         otaList.add(dls);
 
@@ -385,10 +402,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // display a message when a button was pressed
-        String message = "";
         if (item.getItemId() == R.id.action_refresh) {
-            get_ota_builds();
+            get_builds();
         }
         else if (item.getItemId() == R.id.action_settings) {
             Intent settings = new Intent(MainActivity.this, Settings.class);
