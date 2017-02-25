@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     Snackbar sb_network;
     Snackbar sb_no_su;
     static SharedPreferences sharedPreferences;
-    CoordinatorLayout coordinator_root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if (sharedPreferences.getBoolean("force_english", true)) {
+        if (sharedPreferences.getBoolean("force_english", false)) {
             Locale myLocale = new Locale("en");
             Resources res = getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
@@ -105,11 +104,10 @@ public class MainActivity extends AppCompatActivity {
             res.updateConfiguration(conf, dm);
         }
 
-        if (sharedPreferences.getBoolean("apptheme_light", true)) {
+        if (sharedPreferences.getBoolean("apptheme_light", false))
             setTheme(R.style.AppTheme_Light);
-        } else {
+        else
             setTheme(R.style.AppTheme_Dark);
-        }
 
         setContentView(R.layout.activity_main);
 
