@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PreferenceCategory android:title="@string/property_network" >
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:title="@string/disable_mobile_title"
             android:summary="@string/disable_mobile_summary"
             android:defaultValue="true"
@@ -31,22 +31,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PreferenceCategory android:title="@string/property_auto_install">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:title="@string/enable_auto_install_title"
             android:key="enable_auto_install"
             android:summary="@string/enable_auto_install_summary" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:title="@string/wipe_dalvik_title"
             android:key="wipe_dalvik"
             android:dependency="enable_auto_install" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:title="@string/wipe_cache_title"
             android:key="wipe_cache"
             android:dependency="enable_auto_install" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:title="@string/auto_reboot_title"
             android:key="auto_reboot"
@@ -56,21 +56,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <PreferenceCategory android:title="@string/property_language">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="false"
             android:title="@string/force_english_title"
             android:key="force_english" />
 
     </PreferenceCategory>
 
-    <CheckBoxPreference
+    <SwitchPreference
         android:defaultValue="true"
         android:key="md5_checking"
         android:title="@string/md5_title" />
 
     <PreferenceCategory android:title="@string/property_visualization">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="false"
             android:title="@string/apptheme_light_title"
             android:key="apptheme_light" />

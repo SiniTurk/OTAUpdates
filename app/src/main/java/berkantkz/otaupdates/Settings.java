@@ -23,9 +23,9 @@ package berkantkz.otaupdates;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.support.v7.app.AlertDialog;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -44,14 +44,14 @@ public class Settings extends PreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences);
 
-        CheckBoxPreference enable_auto_install = (CheckBoxPreference) findPreference("enable_auto_install");
+        SwitchPreference enable_auto_install = (SwitchPreference) findPreference("enable_auto_install");
         if (!Shell.SU.available()) {
             enable_auto_install.setEnabled(false);
             enable_auto_install.setChecked(false);
             enable_auto_install.setSummary(getString(R.string.auto_install_root_only));
         }
 
-        CheckBoxPreference setEnglish = (CheckBoxPreference) findPreference("force_english");
+        SwitchPreference setEnglish = (SwitchPreference) findPreference("force_english");
         setEnglish.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -79,7 +79,7 @@ public class Settings extends PreferenceActivity {
             }
         });
 
-        CheckBoxPreference apptheme_light = (CheckBoxPreference) findPreference("apptheme_light");
+        SwitchPreference apptheme_light = (SwitchPreference) findPreference("apptheme_light");
         apptheme_light.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
