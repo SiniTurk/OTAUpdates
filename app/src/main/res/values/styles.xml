@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <item name="colorPrimary">@color/lightGrey</item>
         <item name="colorPrimaryDark">@color/lightGrey</item>
         <item name="colorAccent">@color/colorSecond</item>
-        <item name="no_list_item">@drawable/ic_not_interested_white</item>
+        <item name="no_list_item">@drawable/not_available_white</item>
     </style>
 
     <style name="AppTheme_Light" parent="Theme.AppCompat.Light">
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <item name="colorPrimaryDark">@color/colorFirst</item>
         <item name="colorPrimary">@color/colorSecond</item>
         <item name="colorAccent">@color/colorSecond</item>
-        <item name="no_list_item">@drawable/ic_not_interested_black</item>
+        <item name="no_list_item">@drawable/not_available_black</item>
     </style>
 
 </resources>

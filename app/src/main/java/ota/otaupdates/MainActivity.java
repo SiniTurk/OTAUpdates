@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package berkantkz.otaupdates;
+package ota.otaupdates;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -70,12 +70,12 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import berkantkz.otaupdates.utils.Constants;
-import berkantkz.otaupdates.utils.MD5;
-import berkantkz.otaupdates.utils.Utils;
+import ota.otaupdates.utils.Constants;
+import ota.otaupdates.utils.MD5;
+import ota.otaupdates.utils.Utils;
 import eu.chainfire.libsuperuser.Shell;
 
-import static berkantkz.otaupdates.utils.Constants.DL_PATH;
+import static ota.otaupdates.utils.Constants.DL_PATH;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                             new Runnable() {
                                 @Override
                                 public void run() {
-                                    create_notification(1, "OTA Updates", "Downloading " + otaList.get(position).getOta_filename());
+                                    create_notification(1, getString(R.string.app_name), getString(R.string.downloader_notification, otaList.get(position).getOta_filename()));
                                     Utils.DownloadFromUrl(url, otaList.get(position).getOta_filename());
                                     ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(1);
                                     runOnUiThread(new Runnable() {
@@ -332,8 +332,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... urls) {
             try {
-
-                //------------------>>
                 HttpGet httppost = new HttpGet(urls[0]);
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response = httpclient.execute(httppost);
@@ -341,13 +339,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.getStatusLine().getStatusCode() == 200) {
                     HttpEntity entity = response.getEntity();
                     String data = EntityUtils.toString(entity);
-                    JSONObject jsono = new JSONObject(data);
-                    JSONArray jarray;
-                    try {
-                        jarray = jsono.getJSONArray("result");
-                    } catch (JSONException e) {
-                        return true;
-                    }
+                    JSONArray jarray = new JSONArray(data);
 
                     for (int i = 0; i < jarray.length(); i++) {
                         JSONObject object = jarray.getJSONObject(i);
@@ -370,8 +362,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 }
-
-                //------------------>>
 
             } catch (ParseException | IOException | JSONException e) {
                 e.printStackTrace();

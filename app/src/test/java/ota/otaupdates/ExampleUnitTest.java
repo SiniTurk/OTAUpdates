@@ -1,4 +1,4 @@
-package berkantkz.otaupdates;
+package ota.otaupdates;
 
 import org.junit.Test;
 

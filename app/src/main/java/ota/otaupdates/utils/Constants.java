@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package berkantkz.otaupdates.utils;
+package ota.otaupdates.utils;
 
 import android.os.Environment;
 

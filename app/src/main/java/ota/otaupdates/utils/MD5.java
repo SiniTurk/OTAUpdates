@@ -1,4 +1,4 @@
-package berkantkz.otaupdates.utils;
+package ota.otaupdates.utils;
 
 
 import android.text.TextUtils;

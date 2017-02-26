@@ -34,4 +34,8 @@
     <string name="property_visualization">Kişiselleştirme</string>
     <string name="apptheme_light_title">Açık temayı kullan</string>
     <string name="no_item_available">Kullanılabilir öğe yok</string>
+    <string name="refresh">Yenile</string>
+    <string name="settings">Ayarlar</string>
+    <string name="force_default_window_title">Varsayılan Dile Zorla</string>
+    <string name="downloader_notification">İndiriliyor %1$s</string>
 </resources>

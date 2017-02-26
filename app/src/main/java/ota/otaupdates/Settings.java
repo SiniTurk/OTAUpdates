@@ -19,13 +19,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package berkantkz.otaupdates;
+package ota.otaupdates;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.SwitchPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.SwitchPreference;
 import android.support.v7.app.AlertDialog;
 
 import eu.chainfire.libsuperuser.Shell;
