@@ -63,10 +63,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/property_file_management">
+
     <SwitchPreference
         android:defaultValue="true"
         android:key="md5_checking"
         android:title="@string/md5_title" />
+
+    <Preference
+        android:key="clean_junk"
+        android:title="@string/clean_junk_title" />
+
+    </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/property_visualization">
 
@@ -74,6 +82,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             android:defaultValue="false"
             android:title="@string/apptheme_light_title"
             android:key="apptheme_light" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/property_about" >
+
+        <Preference
+            android:title="@string/developers_title"
+            android:summary="Berkant Korkmaz, Tim Schumacher" />
 
     </PreferenceCategory>
 

@@ -21,16 +21,28 @@
 
 package ota.otaupdates;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.preference.SwitchPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.io.File;
 
 import eu.chainfire.libsuperuser.Shell;
+import ota.otaupdates.utils.Utils;
 
 public class Settings extends PreferenceActivity {
+
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,5 +117,52 @@ public class Settings extends PreferenceActivity {
             }
         });
 
+        Preference clean_junk = (Preference) findPreference("clean_junk");
+        clean_junk.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                if (Build.VERSION.SDK_INT >= 23 && !checkPermission()) {
+                    // If user hasn't allowed yet, request the permission.
+                    requestPermission();
+                }
+                final AlertDialog.Builder delete_dialog = new AlertDialog.Builder(Settings.this);
+                delete_dialog.setMessage(R.string.clean_junk_summary_dialog);
+                delete_dialog.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        File folder = new File(Utils.DL_PATH);
+                        File fList[] = folder.listFiles();
+                        for (i = 0; i < fList.length; i++) {
+                            String pes = String.valueOf(fList[i]);
+                            if (pes.endsWith(".zip")) {
+                                boolean success = (new File(String.valueOf(fList[i])).delete());
+                                fList[i].delete();
+                            }
+                            Log.d("OTAUpdates: clean_junk", "old files cleaned");
+                            Toast.makeText(getApplicationContext(), "Old files cleaned", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                delete_dialog.setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                delete_dialog.show();
+                return true;
+            }
+        });
+
     }
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(Settings.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(Settings.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+
+    }
+
 }
