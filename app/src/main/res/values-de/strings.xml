@@ -53,4 +53,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="settings">Einstellungen</string>
     <string name="force_default_window_title">Standard Sprache erzwingen</string>
     <string name="downloader_notification">Lade %1$s herunter</string>
+    <string name="property_about">Über</string>
+    <string name="developers_title">Entwickler</string>
+    <string name="property_file_management">File management</string>
+    <string name="clean_junk_title">Remove all downloaded files</string>
+    <string name="clean_junk_summary_dialog">Warning! You may lose your eventual/not installed files.</string>
+    <string name="clean_junk_title_dialog">Are you sure to remove old files?</string>
 </resources>
