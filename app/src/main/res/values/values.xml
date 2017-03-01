@@ -18,5 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <color name="primary_material_dark">#232426</color>
     <color name="primary_dark_material_dark">#232426</color>
     <color name="accent_material_dark">#0b6d88</color>
-    <string name="download_url" translatable="false">http://timschumi.16mb.com/ota</string>
+    <string name="download_url" translatable="false">http://localhost</string>
 </resources>
