@@ -55,8 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="downloader_notification">Lade %1$s herunter</string>
     <string name="property_about">Über</string>
     <string name="developers_title">Entwickler</string>
-    <string name="property_file_management">File management</string>
-    <string name="clean_junk_title">Remove all downloaded files</string>
-    <string name="clean_junk_summary_dialog">Warning! You may lose your eventual/not installed files.</string>
-    <string name="clean_junk_title_dialog">Are you sure to remove old files?</string>
+    <string name="property_file_management">Dateiverwaltung</string>
+    <string name="clean_junk_title">Alle heruntergeladenen Dateien löschen</string>
+    <string name="clean_junk_dialog_summary">Achtung! Es werden eventuell noch nicht installierte Dateien gelöscht.</string>
+    <string name="clean_junk_dialog_title">Wollen Sie wirklich alle heruntergeladenen Dateien löschen?</string>
 </resources>

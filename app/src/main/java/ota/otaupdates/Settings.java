@@ -126,7 +126,7 @@ public class Settings extends PreferenceActivity {
                     requestPermission();
                 }
                 final AlertDialog.Builder delete_dialog = new AlertDialog.Builder(Settings.this);
-                delete_dialog.setMessage(R.string.clean_junk_summary_dialog);
+                delete_dialog.setMessage(R.string.clean_junk_dialog_summary);
                 delete_dialog.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

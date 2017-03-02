@@ -42,6 +42,6 @@
     <string name="developers_title">Geliştiriciler</string>
     <string name="property_file_management">Dosya Yönetimi</string>
     <string name="clean_junk_title">İndirilmiş eski dosyaları sil</string>
-    <string name="clean_junk_summary_dialog">Uyarı! Son indirdiğiniz/kurmadığınız dosyaları kaybedebilirsiniz!</string>
-    <string name="clean_junk_title_dialog">Are you sure to remove old files?</string>
+    <string name="clean_junk_dialog_summary">Uyarı! Son indirdiğiniz/kurmadığınız dosyaları kaybedebilirsiniz!</string>
+    <string name="clean_junk_dialog_title">Are you sure to remove old files?</string>
 </resources>
