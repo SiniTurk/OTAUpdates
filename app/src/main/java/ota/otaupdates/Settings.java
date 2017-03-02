@@ -132,15 +132,16 @@ public class Settings extends PreferenceActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         File folder = new File(Utils.DL_PATH);
                         File fList[] = folder.listFiles();
-                        for (i = 0; i < fList.length; i++) {
-                            String pes = String.valueOf(fList[i]);
-                            if (pes.endsWith(".zip")) {
-                                boolean success = (new File(String.valueOf(fList[i])).delete());
-                                fList[i].delete();
+                        if (fList != null) {
+                            for (i = 0; i < fList.length; i++) {
+                                String pes = String.valueOf(fList[i]);
+                                if (pes.endsWith(".zip")) {
+                                    fList[i].delete();
+                                }
                             }
-                            Log.d("OTAUpdates: clean_junk", "old files cleaned");
-                            Toast.makeText(getApplicationContext(), "Old files cleaned", Toast.LENGTH_SHORT).show();
                         }
+                        Log.d(getString(R.string.app_name) + ": clean_junk", "Old files cleaned");
+                        Toast.makeText(getApplicationContext(), "Old files cleaned", Toast.LENGTH_SHORT).show();
                     }
                 });
                 delete_dialog.setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
