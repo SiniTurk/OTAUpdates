@@ -43,4 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## Thanks
 
-Special thanks to [@berkantkz](http://www.github.com/berkantkz), whithout whose help I would only have a OTA Server and no App that could use it
+Special thanks to [@berkantkz](http://www.github.com/berkantkz), without whose help I would only have a OTA Server and no App that could use it
