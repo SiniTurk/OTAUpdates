@@ -67,6 +67,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -363,7 +364,17 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
 
-            } catch (ParseException | IOException | JSONException e) {
+            } catch (UnknownHostException e) {
+                Log.e(getString(R.string.app_name), "No Network Connection");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Snackbar mSnackbar = Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_SHORT);
+                        mSnackbar.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                        mSnackbar.show();
+                    }
+                });
+            } catch (IOException | ParseException | JSONException e) {
                 e.printStackTrace();
             }
             return false;
@@ -375,8 +386,6 @@ public class MainActivity extends AppCompatActivity {
             pb.setVisibility(View.GONE);
             ota_list = (ListView) findViewById(R.id.ota_list);
             ota_list.setVisibility((adapter.isEmpty())?View.GONE:View.VISIBLE);
-            if (!result)
-                Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_SHORT);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
         }
