@@ -120,8 +120,7 @@ public class Settings extends PreferenceActivity {
             }
         });
 
-        Preference clean_junk = (Preference) findPreference("clean_junk");
-        clean_junk.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        findPreference("clean_junk").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 if (Build.VERSION.SDK_INT >= 23 && !checkPermission()) {
