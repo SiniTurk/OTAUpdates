@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     Snackbar sb_network;
     Snackbar sb_no_su;
     static SharedPreferences sharedPreferences;
-
+    ProgressBar pb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
         otaList = new ArrayList<>();
         get_builds();
+        pb = (ProgressBar) findViewById(R.id.pb);
+        pb.setVisibility(View.VISIBLE);
 
         final ListView ota_list = (ListView) findViewById(R.id.ota_list);
 
@@ -319,7 +321,6 @@ public class MainActivity extends AppCompatActivity {
 
         CoordinatorLayout coordinator_root;
         Snackbar sb;
-        ProgressBar pb;
         ListView ota_list;
 
         @Override
@@ -329,8 +330,6 @@ public class MainActivity extends AppCompatActivity {
             sb = Snackbar.make(coordinator_root, getString(R.string.loading), Snackbar.LENGTH_SHORT);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
             sb.show();
-            pb = (ProgressBar) findViewById(R.id.pb);
-            pb.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -386,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Boolean result) {
             adapter.notifyDataSetChanged();
-            pb.setVisibility(View.GONE);
+            pb.setVisibility(View.INVISIBLE);
             ota_list = (ListView) findViewById(R.id.ota_list);
             ota_list.setVisibility((adapter.isEmpty())?View.GONE:View.VISIBLE);
             sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
@@ -406,6 +405,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
             get_builds();
+            pb.setVisibility(View.VISIBLE);
         }
         else if (item.getItemId() == R.id.action_settings) {
             Intent settings = new Intent(MainActivity.this, Settings.class);
