@@ -17,6 +17,9 @@
  * GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Only the Main Program is covered by this License. Other modules/items which
+ * are included/used may have other Licenses
  */
 
 package ota.otaupdates;
