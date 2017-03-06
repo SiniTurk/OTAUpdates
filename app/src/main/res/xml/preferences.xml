@@ -89,6 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         <Preference
             android:title="@string/developers_title"
+            android:key="devs"
             android:summary="Berkant Korkmaz, Tim Schumacher" />
 
     </PreferenceCategory>
