@@ -218,7 +218,9 @@ public class MainActivity extends AppCompatActivity {
     private void create_notification(int id, String title, String content) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher_50)
+                .setSmallIcon(
+                        (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP
+                                ? R.drawable.app_icon_notification : R.drawable.app_icon))
                 .setContentTitle(title)
                 .setContentText(content);
 
