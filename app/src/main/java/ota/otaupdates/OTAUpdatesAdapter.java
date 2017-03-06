@@ -36,6 +36,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ota.otaupdates.utils.Utils;
+
 class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
     private ArrayList<OTAUpdates> otalist;
     private LayoutInflater vi;
@@ -66,7 +68,7 @@ class OTAUpdatesAdapter extends ArrayAdapter<OTAUpdates> {
             holder = (ViewHolder) v.getTag();
         }
         holder.ota_filename.setText(otalist.get(position).getOta_filename());
-        holder.ota_timestamp.setText(otalist.get(position).getOta_timestamp());
+        holder.ota_timestamp.setText(Utils.getDate(Long.parseLong(otalist.get(position).getOta_timestamp())));
         holder.ota_version.setText(otalist.get(position).isDelta() ? "DELTA" : otalist.get(position).getOta_version());
         if(otalist.get(position).isDelta())
             holder.ota_image.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.delta_image));

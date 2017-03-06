@@ -25,6 +25,7 @@
 package ota.otaupdates.utils;
 
 import android.os.Looper;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import org.apache.http.util.ByteArrayBuffer;
@@ -38,6 +39,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class Utils implements Constants {
     /**
@@ -143,5 +146,11 @@ public class Utils implements Constants {
     public static Boolean isMainThread()
     {
         return Looper.myLooper() == Looper.getMainLooper();
+    }
+
+    public static String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        cal.setTimeInMillis(time);
+        return DateFormat.format("dd-MM-yyyy", cal).toString();
     }
 }
