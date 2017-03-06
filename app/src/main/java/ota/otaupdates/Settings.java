@@ -162,30 +162,30 @@ public class Settings extends PreferenceActivity {
         findPreference("devs").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                clickcount=clickcount+1;
-                if(clickcount==8 | clickcount==12 | clickcount==16 | clickcount==20 | clickcount==24)
-                {
-                    Toast.makeText(getApplicationContext(),"Will crash if you don't stop clicking on", Toast.LENGTH_SHORT).show();
-                }
-                if (clickcount==28) {
-                    Toast.makeText(getApplicationContext(), "Really will crash after some clicks", Toast.LENGTH_SHORT).show();
-                    final Timer timer = new Timer();
-                    timer.scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    clickcount = 0;
-                                    Toast.makeText(getApplicationContext(), "Gave up, won't crash", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            timer.cancel();
-                        }
-                    },4000,1);
-                }
-                if (clickcount==35) {
-                    throw null;
+                clickcount++;
+                switch (clickcount) {
+                    case 8: case 12: case 16: case 20: case 24:
+                        Toast.makeText(getApplicationContext(),"Will crash if you don't stop clicking on", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 28:
+                        Toast.makeText(getApplicationContext(), "Really will crash after some clicks", Toast.LENGTH_SHORT).show();
+                        final Timer timer = new Timer();
+                        timer.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        clickcount = 0;
+                                        Toast.makeText(getApplicationContext(), "Gave up, won't crash", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                timer.cancel();
+                            }
+                        },4000,1);
+                        break;
+                    case 35:
+                        throw new NullPointerException("Well, you pointed at something...");
                 }
             return true;
             }
