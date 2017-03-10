@@ -62,4 +62,8 @@ are included/used may have other Licenses
     <string name="clean_junk_title">Alle heruntergeladenen Dateien löschen</string>
     <string name="clean_junk_dialog_summary">Achtung! Es werden eventuell noch nicht installierte Dateien gelöscht.</string>
     <string name="clean_junk_dialog_title">Wollen Sie wirklich alle heruntergeladenen Dateien löschen?</string>
+    <string name="clean_junk_toast">Alte Dateien gelöscht</string>
+    <string name="crash_soon">Ich werde abstürzen wenn du nicht aufhörst zu klicken</string>
+    <string name="crash_soon_really">Ich werde in ein paar Klicks abstürzen. Ernsthaft.</string>
+    <string name="crash_soon_gaveup">Ich gebe auf! Ich stürze nicht ab</string>
 </resources>

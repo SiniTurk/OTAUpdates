@@ -146,7 +146,7 @@ public class Settings extends PreferenceActivity {
                             }
                         }
                         Log.d(getString(R.string.app_name) + ": clean_junk", "Old files cleaned");
-                        Toast.makeText(getApplicationContext(), "Old files cleaned", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.clean_junk_toast, Toast.LENGTH_SHORT).show();
                     }
                 });
                 delete_dialog.setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
@@ -165,10 +165,10 @@ public class Settings extends PreferenceActivity {
                 clickcount++;
                 switch (clickcount) {
                     case 8: case 12: case 16: case 20: case 24:
-                        Toast.makeText(getApplicationContext(),"Will crash if you don't stop clicking on", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),R.string.crash_soon, Toast.LENGTH_SHORT).show();
                         break;
                     case 28:
-                        Toast.makeText(getApplicationContext(), "Really will crash after some clicks", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),R.string.crash_soon_really, Toast.LENGTH_SHORT).show();
                         final Timer timer = new Timer();
                         timer.scheduleAtFixedRate(new TimerTask() {
                             @Override
@@ -177,7 +177,7 @@ public class Settings extends PreferenceActivity {
                                     @Override
                                     public void run() {
                                         clickcount = 0;
-                                        Toast.makeText(getApplicationContext(), "Gave up, won't crash", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), R.string.crash_soon_gaveup, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 timer.cancel();

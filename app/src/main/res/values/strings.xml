@@ -62,4 +62,8 @@ are included/used may have other Licenses
     <string name="clean_junk_title">Remove all downloaded files</string>
     <string name="clean_junk_dialog_summary">Warning! You may lose your eventually not installed files.</string>
     <string name="clean_junk_dialog_title">Are you sure to remove old files?</string>
+    <string name="clean_junk_toast">Old files cleaned</string>
+    <string name="crash_soon">Will crash if you don\'t stop clicking on</string>
+    <string name="crash_soon_really">Really will crash after some clicks</string>
+    <string name="crash_soon_gaveup">Gave up, won\'t crash</string>
 </resources>
