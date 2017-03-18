@@ -39,7 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Settings" />
+        <activity android:name=".Settings"
+            android:theme="@style/SettingsTheme_Dark"/>
     </application>
 
 </manifest>

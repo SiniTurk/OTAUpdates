@@ -66,4 +66,36 @@ are included/used may have other Licenses
 
     <!-- END OF LIGHT THEME -->
 
+    <!-- DARK SETTINGS THEME GOES HERE -->
+
+    <style name="SettingsTheme_Dark" parent="@android:style/Theme.Material">
+        <item name="android:colorPrimary">@color/lightGrey</item>
+        <item name="android:colorPrimaryDark">@color/lightGrey</item>
+        <item name="android:colorAccent">@color/colorSecond</item>
+        <item name="android:navigationBarColor">@color/lightGrey</item>
+        <item name="android:navigationIcon">@drawable/back_24</item>
+    </style>
+
+    <!-- END OF DARK SETTINGS THEME -->
+
+    <!-- LIGHT SETTINGS THEME GOES HERE -->
+
+    <style name="SettingsTheme_Light" parent="@android:style/Theme.Material.Light">
+        <item name="android:colorPrimaryDark">@color/colorFirst</item>
+        <item name="android:colorPrimary">@color/colorSecond</item>
+        <item name="android:colorAccent">@color/colorSecond</item>
+        <item name="android:navigationBarColor">@color/colorSecond</item>
+        <item name="android:navigationIcon">@drawable/back_24</item>
+    </style>
+
+    <!-- END OF LIGHT SETTINGS THEME -->
+
+    <!-- DARK DIALOG GOES HERE -->
+    <style name="SettingsTheme_Dark_Dialog" parent="Theme.AppCompat.Dialog.Alert"/>
+    <!-- END OF DARK DIALOG THEME -->
+
+    <!-- LIGHT DIALOG GOES HERE -->
+    <style name="SettingsTheme_Light_Dialog" parent="Theme.AppCompat.Light.Dialog.Alert"/>
+    <!-- END OF LIGHT DIALOG THEME -->
+
 </resources>

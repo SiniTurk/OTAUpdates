@@ -35,7 +35,9 @@ import android.preference.SwitchPreference;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.File;
@@ -49,14 +51,26 @@ public class Settings extends PreferenceActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     int clickcount=0;
+    int dialog_theme;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        if (MainActivity.sharedPreferences.getBoolean("apptheme_light", false))
-            setTheme(R.style.AppTheme_Light);
-        else
-            setTheme(R.style.AppTheme_Dark);
+        if (MainActivity.sharedPreferences.getBoolean("apptheme_light", false)) {
+            setTheme(R.style.SettingsTheme_Light);
+            if (Build.VERSION.SDK_INT >= 21) {
+                dialog_theme = R.style.SettingsTheme_Light_Dialog;
+            }
+
+            String app_name_white = getResources().getString(R.string.app_name_white);
+            getActionBar().setTitle(Html.fromHtml(app_name_white));
+        }
+        else {
+            setTheme(R.style.SettingsTheme_Dark);
+            if (Build.VERSION.SDK_INT >= 21) {
+                dialog_theme = R.style.SettingsTheme_Dark_Dialog;
+            }
+        }
 
         super.onCreate(savedInstanceState);
 
@@ -73,7 +87,7 @@ public class Settings extends PreferenceActivity {
         setEnglish.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this, dialog_theme);
 
                 if (MainActivity.sharedPreferences.getBoolean("force_english", false))
                     builder.setTitle(getString(R.string.force_english_window_title));
@@ -101,7 +115,7 @@ public class Settings extends PreferenceActivity {
         apptheme_light.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this, dialog_theme);
                 if (MainActivity.sharedPreferences.getBoolean("apptheme_light", false))
                     setTheme(R.style.AppTheme_Light);
                 else
@@ -130,7 +144,7 @@ public class Settings extends PreferenceActivity {
                     // If user hasn't allowed yet, request the permission.
                     requestPermission();
                 }
-                final AlertDialog.Builder delete_dialog = new AlertDialog.Builder(Settings.this);
+                final AlertDialog.Builder delete_dialog = new AlertDialog.Builder(Settings.this, dialog_theme);
                 delete_dialog.setMessage(R.string.clean_junk_dialog_summary);
                 delete_dialog.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                     @Override
@@ -205,4 +219,14 @@ public class Settings extends PreferenceActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

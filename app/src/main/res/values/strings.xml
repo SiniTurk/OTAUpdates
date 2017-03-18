@@ -18,6 +18,7 @@ are included/used may have other Licenses
 -->
 <resources>
     <string name="app_name" translatable="false">OTA Updates</string>
+    <string name="app_name_white" translatable="false"><![CDATA[<font color=#ffffff>OTA Updates]]></string>
     <string name="write_access">Write Access</string>
     <string name="write_access_message">We need your permission to download available roms. You must accept this, else app won\'t work.</string>
     <string name="loading">Loading…</string>
