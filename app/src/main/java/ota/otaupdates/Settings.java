@@ -159,6 +159,8 @@ public class Settings extends PreferenceActivity {
             }
         });
 
+        findPreference("app_version").setSummary(BuildConfig.VERSION_NAME);
+
         findPreference("devs").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

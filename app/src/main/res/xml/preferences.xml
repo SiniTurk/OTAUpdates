@@ -88,6 +88,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <PreferenceCategory android:title="@string/property_about" >
 
         <Preference
+            android:key="app_version"
+            android:title="@string/app_version_title" />
+
+        <Preference
             android:title="@string/developers_title"
             android:key="devs"
             android:summary="Berkant Korkmaz, Tim Schumacher" />
