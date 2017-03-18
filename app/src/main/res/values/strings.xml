@@ -66,4 +66,5 @@ are included/used may have other Licenses
     <string name="crash_soon">Will crash if you don\'t stop clicking on</string>
     <string name="crash_soon_really">Really will crash after some clicks</string>
     <string name="crash_soon_gaveup">Gave up, won\'t crash</string>
+    <string name="app_version_title">Version</string>
 </resources>

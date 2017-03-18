@@ -66,4 +66,5 @@ are included/used may have other Licenses
     <string name="crash_soon">Ich werde abstürzen wenn du nicht aufhörst zu klicken</string>
     <string name="crash_soon_really">Ich werde in ein paar Klicks abstürzen. Ernsthaft.</string>
     <string name="crash_soon_gaveup">Ich gebe auf! Ich stürze nicht ab</string>
+    <string name="app_version_title">Version</string>
 </resources>

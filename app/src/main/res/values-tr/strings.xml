@@ -66,4 +66,5 @@ are included/used may have other Licenses
     <string name="crash_soon">Eğer tıklamayı bırakmazsan patlayacak</string>
     <string name="crash_soon_really">Birkaç tıklama sonra gerçekten patlayacak!</string>
     <string name="crash_soon_gaveup">Neyse, patlamıyor...</string>
+    <string name="app_version_title">Sürüm</string>
 </resources>
