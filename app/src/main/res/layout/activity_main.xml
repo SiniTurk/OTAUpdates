@@ -1,38 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
 
-<com.baoyz.widget.PullRefreshLayout
-    android:id="@+id/app_swipe_refresh"
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    tools:context="berkantkz.otaupdates.MainActivity">
+    tools:context="ota.otaupdates.MainActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"/>
 
-            <TextView
-                    android:id="@+id/text_download"
+    <TextView
+        android:id="@+id/text_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorSecond"
+        android:layout_below="@id/pb"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="@string/available_updates" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text_download">
+
+            <LinearLayout
+                android:id="@+id/linear_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <ListView
+                        android:id="@+id/ota_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@color/colorSecond"
+                        android:dividerHeight="3px" />
+
+                <ImageView
+                    android:id="@android:id/empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorSecond"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:text="DOWNLOAD" />
+                    android:src="?attr/no_list_item"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="center" />
 
-            <ListView
-                    android:id="@+id/ota_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@color/colorSecond"
-                    android:dividerHeight="3px" />
-        </LinearLayout>
-</com.baoyz.widget.PullRefreshLayout>
+                <TextView
+                    android:id="@android:id/empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_item_available"
+                    android:textSize="10pt"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

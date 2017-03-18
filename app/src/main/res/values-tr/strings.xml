@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Only the Main Program is covered by this License. Other modules which
+are included/used may have other Licenses
+-->
+<resources>
+    <string name="auto_install_message">Paketi otomatik olarak kurmak istiyor musunuz?</string>
+    <string name="auto_install_title">Otomatik Kurulum</string>
+    <string name="auto_reboot_title">Kurtarma moduna otomatik olarak gir</string>
+    <string name="button_no">Hayır</string>
+    <string name="button_ok">TAMAM</string>
+    <string name="button_yes">Evet</string>
+    <string name="disable_mobile_message">Mobil veri üzerinden indirme devre dışı</string>
+    <string name="disable_mobile_summary">Değişikliklerin etkili olması için uygulamayı yeniden başlatma gerekebilir</string>
+    <string name="disable_mobile_title">Mobil veri üzerinden indirmeyi devre dışı bırak</string>
+    <string name="enable_auto_install_summary">Uyumlu bir kurtarma modu gerektirir</string>
+    <string name="enable_auto_install_title">Otomatik kurmayı aktifleştir</string>
+    <string name="loading">Yükleniyor…</string>
+    <string name="loading_failed">Yüklenemedi! Bağlantınızı denetleyin.</string>
+    <string name="property_auto_install">Otomatik Kurulum</string>
+    <string name="property_network">Bağlantı</string>
+    <string name="request_permission">İzin verilmeli</string>
+    <string name="wipe_cache_title">Otomatik kurulumda önbelleği temizle</string>
+    <string name="wipe_dalvik_title">Otomatik kurulumda Dalvik önbelleğini temizle</string>
+    <string name="write_access">Yazma izni</string>
+    <string name="write_access_message">Kullanılabilir dosyaları kaydedebilmek için izinlerinize ihtiyacımız var. Mutlaka izin vermelisiniz, aksi hâlde uygulama çalışmayacak.</string>
+    <string name="available_updates">Kullanılabilir Güncelleştirmeler</string>
+    <string name="auto_install_root_only">Sadece root edilmiş/root erişimi alınmış cihazlar için kullanılabilir</string>
+    <string name="force_english_title">İngilizce kullanmaya zorla</string>
+    <string name="force_english_window_title">İngilizce\'ye zorla</string>
+    <string name="force_english_window_message">Değişikliklerin uygulanması için yeniden başlatma gerekli. Şimdi ya da daha sonra yeniden başlatabilirsiniz. Şimdi yeniden başlatmak istiyor musunuz?</string>
+    <string name="property_language">Dil</string>
+    <string name="md5_message">MD5 denetlemesinde hata oluştu. Hâlâ flaşlamak istiyorsanız, lütfen MD5 denetlemesini ayarlardan devre dışı bırakın</string>
+    <string name="md5_title">MD5 Denetlemesi</string>
+    <string name="switch_apptheme_light_window_title">Açık temeya geç</string>
+    <string name="switch_apptheme_dark_window_title">Koyu temaya geç</string>
+    <string name="switch_apptheme_light_window_message">Değişikliklerin uygulanması için yeniden başlatma gerekli. Şimdi ya da daha sonra yeniden başlatabilirsiniz. Şimdi yeniden başlatmak istiyor musunuz?</string>
+    <string name="property_visualization">Kişiselleştirme</string>
+    <string name="apptheme_light_title">Açık temayı kullan</string>
+    <string name="no_item_available">Kullanılabilir öğe yok</string>
+    <string name="refresh">Yenile</string>
+    <string name="settings">Ayarlar</string>
+    <string name="force_default_window_title">Varsayılan Dile Zorla</string>
+    <string name="downloader_notification">İndiriliyor %1$s</string>
+    <string name="property_about">Hakkında</string>
+    <string name="developers_title">Geliştiriciler</string>
+    <string name="property_file_management">Dosya Yönetimi</string>
+    <string name="clean_junk_title">İndirilmiş eski dosyaları sil</string>
+    <string name="clean_junk_dialog_summary">Uyarı! Son indirdiğiniz/kurmadığınız dosyaları kaybedebilirsiniz!</string>
+    <string name="clean_junk_dialog_title">Eski dosyaları silmek istediğinize emin misiniz?</string>
+    <string name="clean_junk_toast">Eski dosyalar silindi</string>
+    <string name="crash_soon">Eğer tıklamayı bırakmazsan patlayacak</string>
+    <string name="crash_soon_really">Birkaç tıklama sonra gerçekten patlayacak!</string>
+    <string name="crash_soon_gaveup">Neyse, patlamıyor...</string>
+</resources>

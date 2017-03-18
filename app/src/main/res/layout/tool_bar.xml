@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:background="@color/lightGrey"
+    android:elevation="4dp" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right">
+
+        <ImageView
+            android:id="@+id/btn_refresh"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/refresh"
+            android:clickable="true"
+            android:onClick="btn_refresh"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="right"/>
+
+        <ImageView
+            android:id="@+id/btn_settings"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/settings"
+            android:clickable="true"
+            android:onClick="btn_settings"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_toRightOf="@id/btn_refresh"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

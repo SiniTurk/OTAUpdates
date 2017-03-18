@@ -18,15 +18,7 @@ Only the Main Program is covered by this License. Other modules which
 are included/used may have other Licenses
 -->
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="black">#000</color>
-    <color name="white">#fff</color>
-    <color name="gray">#cecece</color>
-    <color name="darkGrey">#1a1a1a</color>
-    <color name="lightGrey">#232426</color>
-    <color name="colorFirst">#0a566b</color>
-    <color name="colorSecond">#0b6d88</color>
-    <color name="Grey2">#bababa</color>
+
+    <attr name="no_list_item" format="reference" />
+
 </resources>

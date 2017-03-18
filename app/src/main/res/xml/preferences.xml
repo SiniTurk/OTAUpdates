@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="settings" >
+
+    <PreferenceCategory android:title="@string/property_network" >
+
+        <SwitchPreference
+            android:title="@string/disable_mobile_title"
+            android:summary="@string/disable_mobile_summary"
+            android:defaultValue="true"
+            android:key="disable_mobile" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/property_auto_install">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/enable_auto_install_title"
+            android:key="enable_auto_install"
+            android:summary="@string/enable_auto_install_summary" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/wipe_dalvik_title"
+            android:key="wipe_dalvik"
+            android:dependency="enable_auto_install" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/wipe_cache_title"
+            android:key="wipe_cache"
+            android:dependency="enable_auto_install" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/auto_reboot_title"
+            android:key="auto_reboot"
+            android:dependency="enable_auto_install" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/property_language">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:title="@string/force_english_title"
+            android:key="force_english" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/property_file_management">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="md5_checking"
+        android:title="@string/md5_title" />
+
+    <Preference
+        android:key="clean_junk"
+        android:title="@string/clean_junk_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/property_visualization">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:title="@string/apptheme_light_title"
+            android:key="apptheme_light" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/property_about" >
+
+        <Preference
+            android:title="@string/developers_title"
+            android:key="devs"
+            android:summary="Berkant Korkmaz, Tim Schumacher" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Only the Main Program is covered by this License. Other modules which
+are included/used may have other Licenses
+-->
+<resources>
+    <string name="loading">Lade…</string>
+    <string name="loading_failed">Laden fehlgeschlagen! Bitte überprüfe deine Internetverbindung</string>
+    <string name="request_permission">Muss erlaubt werden</string>
+    <string name="write_access_message">Wir brauchen deine Erlaubnis um verfügbare ROMs herunterzuladen. Du musst dies erlauben, sonst wird die App nicht funktionieren.</string>
+    <string name="write_access">Schreibzugriff</string>
+    <string name="button_ok">OK</string>
+    <string name="disable_mobile_summary">Ein App Neustart könnte nötig sein, um die Änderungen zu übernehmen</string>
+    <string name="disable_mobile_title">Verhindere Downloads über das mobile Internet</string>
+    <string name="disable_mobile_message">Downloads über das mobile Internet sind deaktiviert</string>
+    <string name="auto_install_message">Wollen sie dieses Update automatisch installieren?</string>
+    <string name="auto_install_title">Automatische Installation</string>
+    <string name="auto_reboot_title">Automatisch in das Recovery-System neustarten</string>
+    <string name="button_no">Nein</string>
+    <string name="button_yes">Ja</string>
+    <string name="enable_auto_install_summary">Benötigt ein kompatibles Recovery-System und ein gerootetes Gerät</string>
+    <string name="enable_auto_install_title">Automatische Installation aktivieren</string>
+    <string name="property_auto_install">Automatische Installation</string>
+    <string name="property_network">Netzwerk</string>
+    <string name="wipe_cache_title">Cache bei Installation formatieren</string>
+    <string name="wipe_dalvik_title">Dalvik Cache bei Installation löschen</string>
+    <string name="md5_message">Das Überprüfen des MD5 Wertes ist fehlgeschlagen. Um das Paket trotzdem zu installieren, bitte deaktiviere die Überprüfung des MD5 Wertes in den Einstellungen</string>
+    <string name="md5_title">MD5 Prüfung</string>
+    <string name="available_updates">Verfügbare Updates</string>
+    <string name="auto_install_root_only">Diese Option ist nur verfügbar  wenn Root-Rechte gegeben wurden</string>
+    <string name="force_english_title">Englische Sprache erzwingen</string>
+    <string name="force_english_window_message">Ein Neustart der App ist nötig, du kannst jetzt oder später neustarten. Möchtest du jetzt die App neustarten?</string>
+    <string name="force_english_window_title">Englisch erzwingen</string>
+    <string name="property_language">Sprache</string>
+    <string name="switch_apptheme_light_window_title">Zum hellen Aussehen wechseln</string>
+    <string name="switch_apptheme_dark_window_title">Zum dunklen Aussehen wechseln</string>
+    <string name="switch_apptheme_light_window_message">Ein Neustart der App ist nötig, du kannst jetzt oder später neustarten. Möchtest du jetzt die App neustarten?</string>
+    <string name="property_visualization">Oberfläche</string>
+    <string name="apptheme_light_title">Benutze die helle Oberfläche</string>
+    <string name="no_item_available">Keine Updates verfügbar</string>
+    <string name="refresh">Neu laden</string>
+    <string name="settings">Einstellungen</string>
+    <string name="force_default_window_title">Standard Sprache erzwingen</string>
+    <string name="downloader_notification">Lade %1$s herunter</string>
+    <string name="property_about">Über</string>
+    <string name="developers_title">Entwickler</string>
+    <string name="property_file_management">Dateiverwaltung</string>
+    <string name="clean_junk_title">Alle heruntergeladenen Dateien löschen</string>
+    <string name="clean_junk_dialog_summary">Achtung! Es werden eventuell noch nicht installierte Dateien gelöscht.</string>
+    <string name="clean_junk_dialog_title">Wollen Sie wirklich alle heruntergeladenen Dateien löschen?</string>
+    <string name="clean_junk_toast">Alte Dateien gelöscht</string>
+    <string name="crash_soon">Ich werde abstürzen wenn du nicht aufhörst zu klicken</string>
+    <string name="crash_soon_really">Ich werde in ein paar Klicks abstürzen. Ernsthaft.</string>
+    <string name="crash_soon_gaveup">Ich gebe auf! Ich stürze nicht ab</string>
+</resources>

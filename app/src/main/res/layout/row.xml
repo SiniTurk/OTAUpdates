@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,10 +27,11 @@
         android:layout_marginTop="10dp">
 
         <ImageView
-            android:id="@+id/ota_channel"
-            android:layout_width="128px"
-            android:layout_height="128px"
-            android:src="@mipmap/ic_launcher"
+            android:id="@+id/ota_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ota_image"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"/>
 
         <LinearLayout
@@ -28,7 +44,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
@@ -43,7 +58,6 @@
                     android:id="@+id/ota_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
                     android:text="7.1"/>
@@ -53,7 +67,6 @@
                     android:layout_height="wrap_content"
                     android:text="-"
                     android:textSize="20sp"
-                    android:textColor="@color/gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"/>
 
@@ -61,7 +74,6 @@
                     android:id="@+id/ota_timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
                     android:text="1479259417"/>

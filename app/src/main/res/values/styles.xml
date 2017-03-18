@@ -1,12 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Only the Main Program is covered by this License. Other modules which
+are included/used may have other Licenses
+-->
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- DARK THEME GOES HERE -->
+
+    <style name="AppTheme_Dark" parent="Theme.AppCompat">
+            <!-- Customize your theme here. -->
+            <item name="colorPrimary">@color/lightGrey</item>
+            <item name="colorPrimaryDark">@color/lightGrey</item>
+            <item name="colorAccent">@color/colorSecond</item>
+
+            <item name="no_list_item">@drawable/not_available_white</item>
+
+            <item name="actionBarStyle">@style/Widget.Dark.ActionBar</item>
+        </style>
+
+        <style name="Widget.Dark.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+            <item name="background">@drawable/ab_bg_dark</item>
+        </style>
+
+        <style name="DarkActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+            <item name="android:textColor">#fff</item>
+        </style>
+
+    <!-- END OF DARK THEME -->
+
+    <!-- LIGHT THEME GOES HERE -->
+
+    <style name="AppTheme_Light" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+        <item name="colorPrimaryDark">@color/colorFirst</item>
         <item name="colorPrimary">@color/colorSecond</item>
-        <item name="colorPrimaryDark">@color/lightGrey</item>
         <item name="colorAccent">@color/colorSecond</item>
-        <item name="android:background">@color/darkGrey</item>
+
+        <item name="no_list_item">@drawable/not_available_black</item>
+
+        <item name="actionBarStyle">@style/Widget.Light.ActionBar</item>
     </style>
+
+    <style name="Widget.Light.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="titleTextStyle">@style/LightActionBarTitleText</item>
+        <item name="background">@drawable/ab_bg_light</item>
+    </style>
+
+    <style name="LightActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <!-- END OF LIGHT THEME -->
 
 </resources>

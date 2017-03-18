@@ -1,3 +1,69 @@
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Only the Main Program is covered by this License. Other modules which
+are included/used may have other Licenses
+-->
 <resources>
-    <string name="app_name">OTA Updates</string>
+    <string name="app_name" translatable="false">OTA Updates</string>
+    <string name="write_access">Write Access</string>
+    <string name="write_access_message">We need your permission to download available roms. You must accept this, else app won\'t work.</string>
+    <string name="loading">Loading…</string>
+    <string name="loading_failed">Failed to load! Check your connection first</string>
+    <string name="request_permission">Needs to be allowed</string>
+    <string name="button_ok">OK</string>
+    <string name="disable_mobile_title">Disable downloading over mobile network</string>
+    <string name="disable_mobile_summary">This may require relaunching the app to take effect</string>
+    <string name="disable_mobile_message">Downloads over mobile network are deactivated</string>
+    <string name="auto_install_title">Auto Installation</string>
+    <string name="auto_install_message">Do you want to automatically install the package?</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="property_network">Network</string>
+    <string name="property_auto_install">Auto-Install</string>
+    <string name="enable_auto_install_title">Enable Auto-Install</string>
+    <string name="enable_auto_install_summary">Requires a compatible recovery</string>
+    <string name="wipe_dalvik_title">Wipe Dalvik on Auto-Install</string>
+    <string name="wipe_cache_title">Wipe Cache on Auto-Install</string>
+    <string name="auto_reboot_title">Reboot to recovery automatically</string>
+    <string name="available_updates">Available Updates</string>
+    <string name="auto_install_root_only">Only rooted/root granted devices are supported</string>
+    <string name="force_english_title">Force English language</string>
+    <string name="force_english_window_title">Force English</string>
+    <string name="force_default_window_title">Force default language</string>
+    <string name="force_english_window_message">Relaunch is required to take effect, you can relaunch now or later. Would you like to restart now?</string>
+    <string name="property_language">Language</string>
+    <string name="md5_title">MD5 Check</string>
+    <string name="md5_message">MD5 Check failed. To flash the package anyways, please disable checking the MD5 in Settings</string>
+    <string name="switch_apptheme_light_window_title">Switch to light theme</string>
+    <string name="switch_apptheme_dark_window_title">Switch to dark theme</string>
+    <string name="switch_apptheme_light_window_message">Relaunch is required to take effect, you can relaunch now or later. Would you like to restart now?</string>
+    <string name="property_visualization">Visualization</string>
+    <string name="apptheme_light_title">Use light theme</string>
+    <string name="no_item_available">No items available</string>
+    <string name="refresh">Refresh</string>
+    <string name="settings">Settings</string>
+    <string name="downloader_notification">Downloading %1$s</string>
+    <string name="property_about">About</string>
+    <string name="developers_title">Developers</string>
+    <string name="property_file_management">File management</string>
+    <string name="clean_junk_title">Remove all downloaded files</string>
+    <string name="clean_junk_dialog_summary">Warning! You may lose your eventually not installed files.</string>
+    <string name="clean_junk_dialog_title">Are you sure to remove old files?</string>
+    <string name="clean_junk_toast">Old files cleaned</string>
+    <string name="crash_soon">Will crash if you don\'t stop clicking on</string>
+    <string name="crash_soon_really">Really will crash after some clicks</string>
+    <string name="crash_soon_gaveup">Gave up, won\'t crash</string>
 </resources>
