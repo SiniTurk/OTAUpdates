@@ -26,6 +26,7 @@ package ota.otaupdates;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,7 +51,8 @@ import ota.otaupdates.utils.Utils;
 public class Settings extends PreferenceActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
-    int clickcount=0;
+    int clickcount_devs = 0;
+    int clickcount_version = 0;
     int dialog_theme;
 
     @Override
@@ -174,12 +176,26 @@ public class Settings extends PreferenceActivity {
         });
 
         findPreference("app_version").setSummary(BuildConfig.VERSION_NAME);
+        findPreference("app_version").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                clickcount_version++;
+                switch (clickcount_version) {
+                    case 8:
+                        Intent egg = new Intent(Settings.this, Egg.class);
+                        startActivity(egg);
+                        clickcount_version=0;
+                        break;
+                }
+                return true;
+            }
+        });
 
         findPreference("devs").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                clickcount++;
-                switch (clickcount) {
+                clickcount_devs++;
+                switch (clickcount_devs) {
                     case 8: case 12: case 16: case 20: case 24:
                         Toast.makeText(getApplicationContext(),R.string.crash_soon, Toast.LENGTH_SHORT).show();
                         break;
@@ -192,7 +208,7 @@ public class Settings extends PreferenceActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        clickcount = 0;
+                                        clickcount_devs = 0;
                                         Toast.makeText(getApplicationContext(), R.string.crash_soon_gaveup, Toast.LENGTH_SHORT).show();
                                     }
                                 });
