@@ -33,6 +33,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -319,6 +320,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     class JSONAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         CoordinatorLayout coordinator_root;
@@ -329,9 +337,15 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             coordinator_root = (CoordinatorLayout) findViewById(R.id.coordinator_root);
-            sb = Snackbar.make(coordinator_root, getString(R.string.loading), Snackbar.LENGTH_SHORT);
-            sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-            sb.show();
+            if (isNetworkAvailable()) {
+                sb = Snackbar.make(coordinator_root, getString(R.string.loading), Snackbar.LENGTH_SHORT);
+                sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                sb.show(); }
+            else {
+                Snackbar mSnackbar = Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_SHORT);
+                mSnackbar.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
+                mSnackbar.show();
+            }
         }
 
         @Override
@@ -373,9 +387,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Snackbar mSnackbar = Snackbar.make(coordinator_root, getString(R.string.loading_failed), Snackbar.LENGTH_SHORT);
-                        mSnackbar.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-                        mSnackbar.show();
+
                     }
                 });
             } catch (IOException | ParseException | JSONException e) {
@@ -390,8 +402,6 @@ public class MainActivity extends AppCompatActivity {
             pb.setVisibility(View.INVISIBLE);
             ota_list = (ListView) findViewById(R.id.ota_list);
             ota_list.setVisibility((adapter.isEmpty())?View.GONE:View.VISIBLE);
-            sb.getView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.colorSecond));
-            sb.show();
         }
     }
 
