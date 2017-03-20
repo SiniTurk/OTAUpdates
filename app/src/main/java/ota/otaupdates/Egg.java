@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * Created by berka on 19.03.2017.
@@ -33,6 +34,9 @@ public class Egg extends AppCompatActivity {
         } else {
             egg_layout.setBackground(wallpaperDrawable);
         }
+
+        TextView egg_version = (TextView) findViewById(R.id.egg_version);
+        egg_version.setText(BuildConfig.VERSION_NAME);
 
 
     }
