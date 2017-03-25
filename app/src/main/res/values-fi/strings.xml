@@ -1,0 +1,69 @@
+<!--
+Copyright 2017 Berkant Korkmaz, Tim Schumacher and Santeri Pikarinen
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Only the Main Program is covered by this License. Other modules which
+are included/used may have other Licenses
+-->
+<resources>
+    <string name="write_access">Kirjoitusoikeus</string>
+    <string name="write_access_message">Tämä sovellus vaatii kirjoitusoikeuden. ROM:ien lataus ei muuten toimi.</string>
+    <string name="loading">Ladataan...</string>
+    <string name="loading_failed">Lataus epäonnistui! Tarkista verkkoyhteys.</string>
+    <string name="request_permission">Tarvitsee oikeuden</string>
+    <string name="button_ok">OK</string>
+    <string name="disable_mobile_title">Estä lataaminen mobiilidatalla</string>
+    <string name="disable_mobile_summary">Sovelluksen uudelleenkäynnistys saattaa olla tarpeen!</string>
+    <string name="disable_mobile_message">Lataaminen mobiilidatalla on estetty asetuksista.</string>
+    <string name="auto_install_title">Automaattinen asennus</string>
+    <string name="auto_install_message">Haluatko asentaa paketin automaattisesti?</string>
+    <string name="button_yes">Kyllä</string>
+    <string name="button_no">Ei</string>
+    <string name="property_network">Verkko</string>
+    <string name="property_auto_install">Automaattiasennus</string>
+    <string name="enable_auto_install_title">Ota automaattiasennus käyttöön</string>
+    <string name="enable_auto_install_summary">Vaatii yhteensopivan \"recovery\":n!</string>
+    <string name="wipe_dalvik_title">\"Wipe Dalvik\" automaattiasennuksen yhteydessä</string>
+    <string name="wipe_cache_title">\"Wipe Cache\" automaattiasennuksen yhteydessä</string>
+    <string name="auto_reboot_title">Käynnistä palautustilaan automaattisesti</string>
+    <string name="available_updates">Saatavilla olevat päivitykset</string>
+    <string name="auto_install_root_only">Vain muokatut laitteet ovat yhteensopivia. (superuser oikeudet)</string>
+    <string name="force_english_title">Pakota kieleksi englanti</string>
+    <string name="force_english_window_title">Pakota englanti</string>
+    <string name="force_default_window_title">Pakota oletuskieli</string>
+    <string name="force_english_window_message">Sovelluksen uudelleenkäynnistys on tarpeen. Käynnistetäänkö sovellus uudelleen nyt?</string>
+    <string name="property_language">Kieli</string>
+    <string name="md5_title">MD5 tarkistus</string>
+    <string name="md5_message">MD5 tarkistus epäonnistui. Jos haluat ohittaa tarkistuksen, käy sallimassa se asetuksista.</string>
+    <string name="switch_apptheme_light_window_title">Vaihta kirkkaaseen teemaan</string>
+    <string name="switch_apptheme_dark_window_title">Vaihta tummaan teemaan</string>
+    <string name="switch_apptheme_light_window_message">Sovelluksen uudelleenkäynnistys on tarpeen. Käynnistetäänkö sovellus uudelleen nyt?</string>
+    <string name="property_visualization">Ulkonäkö</string>
+    <string name="apptheme_light_title">Käytä vaaleaa teemaa</string>
+    <string name="no_item_available">Kohteita ei saatavilla</string>
+    <string name="refresh">Päivitä</string>
+    <string name="settings">Asetukset</string>
+    <string name="downloader_notification">Ladataan: %1$s</string>
+    <string name="property_about">Tietoja</string>
+    <string name="developers_title">Kehittäjät</string>
+    <string name="property_file_management">Tiedostonhallinta</string>
+    <string name="clean_junk_title">Poista kaikki ladatut tiedostot</string>
+    <string name="clean_junk_dialog_summary">Varoitus! Saatat menettää asentamattomat tiedostot.</string>
+    <string name="clean_junk_dialog_title">Oletko varma, että haluat poistaa ladatut tiedostot?</string>
+    <string name="clean_junk_toast">Vanhat tiedostot poistettu!</string>
+    <string name="crash_soon">No no.. rauhassa vaan</string>
+    <string name="crash_soon_really">Ei kehittäjän tykkään tollasesta!</string>
+    <string name="crash_soon_gaveup">No huhhuh!!</string>
+    <string name="app_version_title">Versio</string>
+</resources>
