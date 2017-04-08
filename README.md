@@ -23,11 +23,11 @@ If this prop is present, the value inside values.xml will be ignored
 
 Prebuilt APKs will always contain http://localhost, so if you use them, you need to set the URL in the build.prop
 
-##Contribute
+## Contribute
 
 You can find issues and submit them in the Issue Tracker or (if you feel like you can improve this program) fork this project on GitHub (always fork the "develop" branch) and drop me a Pull Request and I will get the changes merged after a review
 
-##License
+## License
 
 This program is free software: you can redistribute it and/or modify  
 it under the terms of the GNU General Public License as published by  
